@@ -1,0 +1,99 @@
+{
+    "header": "TRADE ANALIZER",
+    "colorMode": {
+        "dark": "Dark",
+        "light": "Light"
+    },
+    "menucontent": {
+        "account": "Account",
+        "calculator": "Calculator",
+        "charts": "Charts",
+        "economic-calendar": "Economic Calendar",
+        "home": "Home",
+        "trading_ideas": "Trading Ideas",
+        "settings": "Settings"
+    },
+    "login": {
+        "account": "Account",
+        "settings": "Settings",
+        "log_out": "Logout",
+        "sign_up": "Sign Up",
+        "sign_in": "Sign in"
+    },
+    "draw": {
+        "arrow": "Arrow",
+        "circle": "Circle",
+        "rectangle": "Rectangle",
+        "line": "Line",
+        "text": "Text",
+        "delete": "delete",
+        "color": "Color"
+    },
+    "search": "Search...",
+    "timeFrames": {
+        "1m": "1 Month",
+        "1d": "Daily",
+        "1h": "1 Hour"
+    },
+    "charType": {
+        "candle": "Candle",
+        "bar": "Bar",
+        "line": "Line",
+        "area": "Area"
+    },
+    "economicCalendar": {
+        "date": "Date",
+        "event": "Event",
+        "actual": "Actual",
+        "forecast": "Forecast",
+        "frevious": "Previous",
+        "impact": "Impact"
+    },
+    "calculator": {
+        "calculator": "Calculator",
+        "depositCurrency": "DEPOSIT CURRENCY",
+        "currency": "CURRENCY",
+        "tradeSize": "TRADE SIZE",
+        "pipAmount": "PIP AMOUNT",
+        "reset": "Reset"
+    },
+    "account": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "phoneNumber": "Phone Number",
+        "email": "Email",
+        "address": {
+            "address": "Address",
+            "addressMsg": "Street name and number"
+        },
+        "country": "Country",
+        "state": "State",
+        "city": "City"
+    },
+    "signIn": {
+        "signIn": "Sign in",
+        "email": "email",
+        "password": "password",
+        "forgotPass": "Forgot your password?",
+        "or": "or",
+        "singInGoogle": "Sign in with Google",
+        "haveAccount": "Don't have an account?  ",
+        "singUp": " Sign Up"
+    },
+    "signUp": {
+        "signUp": "Sign up",
+        "fullName": " Full name",
+        "email": "email",
+        "password": "password",
+        "or": "or",
+        "singUpGoogle": "Sign in with Google",
+        "alreadyHaveAccount": "Already have an account?  ",
+        "singIn": " Sign In"
+    },
+    "home": {
+        "text": "Analyze the assets with the greatest potential in the financial markets, invest like a professional in a quick and convenient way, just as Trade Analyzer can offer. It's as easy as signing up and starting your analysis. What are you waiting for?",
+        "proFeatures": "Features",
+        "disclaimer": "Disclaimer.",
+        "terms": "Terms."
+    }
+}

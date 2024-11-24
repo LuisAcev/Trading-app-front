@@ -1,0 +1,99 @@
+{
+    "header": "TRADE ANALIZER",
+    "colorMode": {
+        "dark": "Oscuro",
+        "light": "Claro"
+    },
+    "menucontent": {
+        "account": "Cuenta",
+        "calculator": "Calculadora",
+        "charts": "Graficas",
+        "economic-calendar": "Calendario Económico",
+        "home": "Inicio",
+        "trading_ideas": "Ideas de trading",
+        "settings": "Configuracion"
+    },
+    "login": {
+        "account": "Cuenta",
+        "settings": "Configuracion",
+        "log_out": "Finalizar Sesión",
+        "sign_up": "Registrarse",
+        "sign_in": "Iniciar Sesión"
+    },
+    "draw": {
+        "arrow": "Flecha",
+        "circle": "Circulo",
+        "rectangle": "Rectangulo",
+        "line": "Linea",
+        "text": "Texto",
+        "delete": "Borrar",
+        "color": "Color"
+    },
+    "search": "Buscar...",
+    "timeFrames": {
+        "1m": "1 Mes",
+        "1d": "1 Dia",
+        "1h": "1 Hora"
+    },
+    "charType": {
+        "candle": "Vela",
+        "bar": "Barra",
+        "line": "Linea",
+        "area": "Area"
+    },
+    "economicCalendar": {
+        "date": "Fecha",
+        "event": "Evento",
+        "actual": "Actual",
+        "forecast": "Previsión",
+        "frevious": "Anterior",
+        "impact": "Impacto"
+    },
+    "calculator": {
+        "calculator": "Calculadora",
+        "depositCurrency": "MONEDA DE DEPÓSITO",
+        "currency": "DIVISA",
+        "tradeSize": "CANTIDAD A COMERCIAR",
+        "pipAmount": "CANTIDAD DE PIP",
+        "reset": "Reiniciar"
+    },
+    "account": {
+        "firstName": "Nombre completo",
+        "lastName": "Apellidos",
+        "phoneNumber": "Número de Telefono",
+        "email": "Email",
+        "address": {
+            "address": "Dirección",
+            "addressMsg": "Nombre y Número de la Calle"
+        },
+        "country": "Pais",
+        "state": "Departamento / Estado",
+        "city": "Ciudad"
+    },
+    "signIn": {
+        "signIn": "Iniciar sesión",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "forgotPass": "Olvido su Contraseña?",
+        "or": "ó",
+        "singInGoogle": "Iniciar sesión con Google",
+        "haveAccount": "Tiene una Cuenta?  ",
+        "singUp": " Registrese"
+    },
+    "signUp": {
+        "signUp": "Registrese",
+        "fullName": " Nombre completo",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
+        "or": "ó",
+        "singUpGoogle": "Iniciar sesión con Google",
+        "alreadyHaveAccount": "Tiene una Cuenta?  ",
+        "singIn": " Iniciar sesión"
+    },
+    "home": {
+        "text": "Analice los activos con mayor potencial en los mercados financieros, invierta como un profesional, de una manera rápida y cómoda como solo Trade Analizer puede ofrecer, es tan fácil como registrarse y empieza a analizar, que esperas?.",
+        "proFeatures": "Caracteristicas",
+        "disclaimer": "Descargo de Responsabilidad.",
+        "terms": "Terminos y Condiciones."
+    }
+}
