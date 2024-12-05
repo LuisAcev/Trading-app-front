@@ -13,17 +13,17 @@ const FormGrid = styled(Grid)(() => ({
 
 export const Account = () => {
   const { t } = useTranslation();
-const payload = useSelector((ietm)=>ietm)
-console.log(payload)
+  const payload = useSelector((ietm) => ietm);
+  console.log(payload);
   return (
     <Box sx={{ width: "90%", padding: "7rem 0 0 0" }}>
       <Grid container spacing={3}>
-      <FormGrid size={{ xs: 6 }}>
+        <FormGrid size={{ xs: 6 }}>
           <FormLabel
             htmlFor="country"
             sx={{ fontSize: 17, fontWeight: "bold" }}
           >
-            {t("ID")}
+            ID
           </FormLabel>
           <OutlinedInput
             name="idy"
@@ -101,7 +101,7 @@ console.log(payload)
             }}
           />
         </FormGrid>
-        
+
         <FormGrid size={{ xs: 6 }}>
           <FormLabel
             htmlFor="phoneNumber"
