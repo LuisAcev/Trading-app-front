@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
+import { useSnackbar } from "notistack";
 import { ForgotPassword } from "./ForgotPassword";
 import { GoogleIcon } from "./CustomIcons";
 import AppTheme from "./theme/AppTheme";
@@ -20,6 +23,9 @@ import SocialMedias from "../home/theme/components/SocialMedias";
 import { LanguageFlag } from "../components/LanguageFlags";
 import { dataLenguage } from "../../db/lenguageDb";
 import ColorModeIconDropdown from "../ColorModeIconDropdown";
+import { getSignInSchema } from "../../models/signIn.js";
+import i18next from "i18next";
+import { useGetUsersQuery } from "../../api/userApi/userApi.js";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -66,11 +72,32 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export const SignIn = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [schema, setSchema] = useState(getSignInSchema());
+  const [queryArgs, setQueryArgs] = useState(null);
   const [open, setOpen] = useState(false);
+  const [errorHandel, setErrorHandel] = useState(false); // Cambiado a false por defecto
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data, error, isLoading } = useGetUsersQuery(queryArgs, {
+    skip: !queryArgs,
+  });
+  const { enqueueSnackbar } = useSnackbar();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
+  const handelRedirectDashBoard = () => {
+    enqueueSnackbar(t("alert.useraccess"), { variant: "success" });
+    navigate(`/dashboard/charts/c`, {
+      replace: true,
+    });
+  };
+
+  const onSubmit = (info) => {
+    setIsSubmitting(true); // Marcar como en proceso de envío
+    setQueryArgs({ email: info.email, password: info.password });
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -80,56 +107,35 @@ export const SignIn = (props) => {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
   const handelRedirectSingUp = () => {
     navigate(`/sign_up`, {
       replace: true,
     });
   };
-  const handelRedirectDashBoard = () => {
-    navigate(`/dashboard/charts/c`, {
-      replace: true,
-    });
-  };
 
-  const validateInputs = () => {
-    //                        OJO PONER VALIDACIONES ////////////
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
+  useEffect(() => {
+    if (isSubmitting) {
+      if (error) {
+        enqueueSnackbar(t("alert.useraccessdenied"), { variant: "error" });
+        setErrorHandel(true);
+        setIsSubmitting(false); 
+      } else if (data) {
+        handelRedirectDashBoard();
+      }
     }
+  }, [error, data, isSubmitting, enqueueSnackbar]);
 
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage("");
-    }
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setSchema(getSignInSchema());
+    };
 
-    return isValid;
-  };
+    i18next.on("languageChanged", handleLanguageChange);
+
+    return () => {
+      i18next.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
 
   return (
     <AppTheme {...props}>
@@ -140,8 +146,8 @@ export const SignIn = (props) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "flex-end",
-            marginRight:{xs:1, lg:5},
-            gap:1
+            marginRight: { xs: 1, lg: 5 },
+            gap: 1,
           }}
         >
           <SocialMedias />
@@ -158,7 +164,7 @@ export const SignIn = (props) => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             noValidate
             sx={{
               display: "flex",
@@ -170,44 +176,37 @@ export const SignIn = (props) => {
             <FormControl>
               <FormLabel htmlFor="email">{t("signIn.email")}</FormLabel>
               <TextField
-                error={emailError}
-                helperText={emailErrorMessage}
-                id="email"
+                autoFocus
+                autoComplete="email"
+                error={!!errors.email}
+                fullWidth
+                helperText={errors.email?.message}
                 type="email"
                 name="email"
                 placeholder="your@email.com"
-                autoComplete="email"
-                autoFocus
                 required
-                fullWidth
                 variant="outlined"
-                color={emailError ? "error" : "primary"}
+                {...register("email")}
               />
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="password">{t("signIn.password")}</FormLabel>
               <TextField
-                error={passwordError}
-                helperText={passwordErrorMessage}
+                error={!!errors.password}
+                helperText={errors.password?.message}
                 name="password"
                 placeholder="••••••"
                 type="password"
-                id="password"
                 autoComplete="current-password"
                 autoFocus
                 required
                 fullWidth
                 variant="outlined"
-                color={passwordError ? "error" : "primary"}
+                {...register("password")}
               />
             </FormControl>
             <ForgotPassword open={open} handleClose={handleClose} />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={handelRedirectDashBoard}
-            >
+            <Button type="submit" fullWidth variant="contained">
               {t("signIn.signIn")}
             </Button>
             <Link

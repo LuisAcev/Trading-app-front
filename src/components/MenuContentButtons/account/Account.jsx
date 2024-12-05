@@ -4,6 +4,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import { useTranslation } from "react-i18next";
 import { styled } from "@mui/system";
 import { Box, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -12,59 +13,50 @@ const FormGrid = styled(Grid)(() => ({
 
 export const Account = () => {
   const { t } = useTranslation();
-
+const payload = useSelector((ietm)=>ietm)
+console.log(payload)
   return (
     <Box sx={{ width: "90%", padding: "7rem 0 0 0" }}>
       <Grid container spacing={3}>
+      <FormGrid size={{ xs: 6 }}>
+          <FormLabel
+            htmlFor="country"
+            sx={{ fontSize: 17, fontWeight: "bold" }}
+          >
+            {t("ID")}
+          </FormLabel>
+          <OutlinedInput
+            name="idy"
+            type="id"
+            autoComplete="shipping country"
+            size="small"
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
+          />
+        </FormGrid>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel
             htmlFor="first-name"
             required
             sx={{ fontSize: 17, fontWeight: "bold" }}
           >
-            {t("account.firstName")}
+            {t("account.fullName")}
           </FormLabel>
           <OutlinedInput
-            id="first-name"
-            name="first-name"
-            type="first-name"
-            autoComplete="first name"
+            name="fullName"
+            type="fullName"
+            autoComplete="fullName"
+            placeholder="John Wick"
             required
             size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 12, md: 6 }}>
-          <FormLabel
-            htmlFor="last-name"
-            required
-            sx={{ fontSize: 17, fontWeight: "bold" }}
-          >
-            {t("account.lastName")}
-          </FormLabel>
-          <OutlinedInput
-            id="last-name"
-            name="last-name"
-            type="last-name"
-            required
-            size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 6 }}>
-          <FormLabel
-            htmlFor="phoneNumber"
-            sx={{ fontSize: 17, fontWeight: "bold" }}
-          >
-            {t("account.phoneNumber")}
-          </FormLabel>
-          <OutlinedInput
-            id="phoneNumber"
-            name="phoneNumber"
-            type="number"
-            placeholder="(111) 111-1111"
-            size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
           />
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
@@ -75,50 +67,58 @@ export const Account = () => {
           >
             {t("account.email")}
           </FormLabel>
-          <OutlinedInput id="Email" name="Email" type="Email" size="small" sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}/>
+          <OutlinedInput
+            id="Email"
+            name="Email"
+            type="Email"
+            size="small"
+            placeholder="test@gmail.com"
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
+          />
         </FormGrid>
-        <FormGrid size={{ xs: 6 }}>
+        <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel
-            htmlFor="address"
+            htmlFor="last-name"
+            required
             sx={{ fontSize: 17, fontWeight: "bold" }}
           >
-            {t("account.address.address")}
+            {t("account.password")}
           </FormLabel>
           <OutlinedInput
-            id="address"
-            name="address"
-            type="address"
-            placeholder={t("account.address.addressMsg")}
+            name="password"
+            type="password"
+            required
+            placeholder="*********"
             size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
           />
         </FormGrid>
+        
         <FormGrid size={{ xs: 6 }}>
-          <FormLabel htmlFor="city" sx={{ fontSize: 17, fontWeight: "bold" }}>
-            {t("account.city")}
+          <FormLabel
+            htmlFor="phoneNumber"
+            sx={{ fontSize: 17, fontWeight: "bold" }}
+          >
+            {t("account.phoneNumber")}
           </FormLabel>
           <OutlinedInput
-            id="city"
-            name="city"
-            type="city"
-            placeholder="New York"
-            autoComplete="City"
+            name="phoneNumber"
+            type="number"
+            placeholder="(111) 111-1111"
             size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
-          />
-        </FormGrid>
-        <FormGrid size={{ xs: 6 }}>
-          <FormLabel htmlFor="state" sx={{ fontSize: 17, fontWeight: "bold" }}>
-            {t("account.state")}
-          </FormLabel>
-          <OutlinedInput
-            id="state"
-            name="state"
-            type="state"
-            placeholder="NY"
-            autoComplete="State"
-            size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
           />
         </FormGrid>
         <FormGrid size={{ xs: 6 }}>
@@ -129,13 +129,16 @@ export const Account = () => {
             {t("account.country")}
           </FormLabel>
           <OutlinedInput
-            id="country"
             name="country"
             type="country"
             placeholder="United States"
             autoComplete="shipping country"
             size="small"
-            sx={{backgroundColor: "rgba(142, 150, 171, 0.25)",  fontSize:17,  color: 'inherit'}}
+            sx={{
+              backgroundColor: "rgba(142, 150, 171, 0.25)",
+              fontSize: 17,
+              color: "inherit",
+            }}
           />
         </FormGrid>
       </Grid>

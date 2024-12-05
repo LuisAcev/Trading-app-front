@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
+import { useSnackbar } from "notistack";
 import AppTheme from "./theme/AppTheme";
 import { GoogleIcon } from "./CustomIcons";
 import { useTranslation } from "react-i18next";
@@ -19,6 +21,10 @@ import SocialMedias from "../home/theme/components/SocialMedias";
 import { LanguageFlag } from "../components/LanguageFlags";
 import { dataLenguage } from "../../db/lenguageDb";
 import ColorModeIconDropdown from "../ColorModeIconDropdown";
+import { getSignUpSchema } from "../../models/signUp.js";
+import { useEffect, useState } from "react";
+import i18next from "i18next";
+import { usePostUsersMutation } from "../../api/userApi/userApi.js";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -65,49 +71,14 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 export const SignUp = (props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [emailError, setEmailError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const [nameError, setNameError] = useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = useState("");
-
-  const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const name = document.getElementById("name");
-
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage("Please enter a valid email address.");
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage("");
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage("Password must be at least 6 characters long.");
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage("");
-    }
-
-    if (!name.value || name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage("Name is required.");
-      isValid = false;
-    } else {
-      setNameError(false);
-      setNameErrorMessage("");
-    }
-
-    return isValid;
-  };
+  const [schema, setSchema] = useState(getSignUpSchema());
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+  const [postUsers, { data, error, isLoading }] = usePostUsersMutation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handelRedirect = () => {
     navigate(`/sign_in`, {
@@ -115,19 +86,30 @@ export const SignUp = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
-      return;
+  const onSubmit = async (body) => {
+    try {
+      await postUsers(body).unwrap();
+      enqueueSnackbar(t("alert.cretedUser"), { variant: "success" });
+      navigate(`/dashboard/charts/c`, {
+        replace: true,
+      });
+    } catch (err) {
+      enqueueSnackbar(t("alert.emailExist"), { variant: "error" });
+      console.error("Error:", err);
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setSchema(getSignUpSchema());
+    };
+
+    i18next.on("languageChanged", handleLanguageChange);
+
+    return () => {
+      i18next.off("languageChanged", handleLanguageChange);
+    };
+  }, []);
 
   return (
     <AppTheme {...props}>
@@ -156,21 +138,21 @@ export const SignUp = (props) => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
             <FormControl>
               <FormLabel htmlFor="name">{t("signUp.fullName")}</FormLabel>
+
               <TextField
                 autoComplete="name"
                 name="name"
                 required
                 fullWidth
-                id="name"
-                placeholder="Jon Snow"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? "error" : "primary"}
+                placeholder="John Wick"
+                error={!!errors.fullname}
+                helperText={errors.fullname?.message}
+                {...register("fullname")}
               />
             </FormControl>
             <FormControl>
@@ -178,14 +160,13 @@ export const SignUp = (props) => {
               <TextField
                 required
                 fullWidth
-                id="email"
                 placeholder="your@email.com"
                 name="email"
                 autoComplete="email"
                 variant="outlined"
-                error={emailError}
-                helperText={emailErrorMessage}
-                color={passwordError ? "error" : "primary"}
+                helperText={errors.email?.message}
+                error={!!errors.email}
+                {...register("email")}
               />
             </FormControl>
             <FormControl>
@@ -196,20 +177,14 @@ export const SignUp = (props) => {
                 name="password"
                 placeholder="••••••"
                 type="password"
-                id="password"
                 autoComplete="new-password"
                 variant="outlined"
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                color={passwordError ? "error" : "primary"}
+                helperText={errors.password?.message}
+                error={!!errors.password}
+                {...register("password")}
               />
             </FormControl>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
+            <Button type="submit" fullWidth variant="contained">
               {t("signUp.signUp")}
             </Button>
           </Box>
@@ -220,7 +195,7 @@ export const SignUp = (props) => {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => alert("Sign up with Google")}
+              onClick={() => console.log("google!!!")}
               startIcon={<GoogleIcon />}
             >
               {t("signUp.singUpGoogle")}

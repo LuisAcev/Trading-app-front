@@ -1,14 +1,18 @@
 import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
+
 import { useEffect, useRef } from "react";
-import { dataAreaLine } from "../../db/lineDb";
+import { useGetlineDataQuery } from "../../api/chartsApi/lineApi";
 
 export const LineCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {} } = props;
+  const { data, error, isLoading } = useGetlineDataQuery("btcusd");
 
   const chartContainerRef = useRef();
 
   useEffect(() => {
+    if (!data) return;
+
     const handleResize = () => {
       chart.applyOptions({ width: chartContainerRef.current.clientWidth });
     };
@@ -20,13 +24,13 @@ export const LineCharts = (props) => {
       width: chartContainerRef.current.clientWidth,
       height: 700,
     });
-
+    
     chart.timeScale().fitContent();
     // chart Type
     const newSeries = chart.addLineSeries({ color: "#2962FF" });
 
     // Get data
-    newSeries.setData(dataAreaLine.data);
+    newSeries.setData(data.datalinea.lineCharts);
 
     window.addEventListener("resize", handleResize);
 
@@ -35,7 +39,7 @@ export const LineCharts = (props) => {
 
       chart.remove();
     };
-  }, [dataAreaLine, backgroundColor]);
+  }, [data, backgroundColor]);
 
   return (
     <Box

@@ -1,5 +1,11 @@
 {
     "header": "TRADE ANALIZER",
+    "alert": {
+        "cretedUser": "User created successfully",
+        "emailExist": "The email is already exist.",
+        "useraccess": "Authorized Access.",
+        "useraccessdenied": "User does not Exist."
+    },
     "colorMode": {
         "dark": "Dark",
         "light": "Light"
@@ -58,22 +64,16 @@
         "reset": "Reset"
     },
     "account": {
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "phoneNumber": "Phone Number",
+        "fullName": "Full name",
         "email": "Email",
-        "address": {
-            "address": "Address",
-            "addressMsg": "Street name and number"
-        },
-        "country": "Country",
-        "state": "State",
-        "city": "City"
+        "password": "Password",
+        "phoneNumber": "Phone Number",
+        "country": "Country"
     },
     "signIn": {
         "signIn": "Sign in",
-        "email": "email",
-        "password": "password",
+        "email": "Email",
+        "password": "Password",
         "forgotPass": "Forgot your password?",
         "or": "or",
         "singInGoogle": "Sign in with Google",
@@ -95,5 +95,31 @@
         "proFeatures": "Features",
         "disclaimer": "Disclaimer.",
         "terms": "Terms."
+    },
+    "signUpShema": {
+        "fullname": {
+            "required": "Full name is mandatory.",
+            "matches": "Name can only contain letters."
+        },
+        "email": {
+            "required": "Email is mandatory.",
+            "email": "Email format is not valid."
+        },
+        "password": {
+            "required": "Password is mandatory.",
+            "min": "Password is too short - should be 6 chars minimum.",
+            "matches": "Password must contain letters, numbers and symbols."
+        }
+    },
+    "signInShema": {
+        "email": {
+            "required": "Email is mandatory.",
+            "email": "Email format is not valid."
+        },
+        "password": {
+            "required": "Password is mandatory.",
+            "min": "Password is too short - should be 6 chars minimum.",
+            "matches": "Password must contain letters, numbers and symbols."
+        }
     }
 }

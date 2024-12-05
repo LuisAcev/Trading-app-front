@@ -1,5 +1,11 @@
 {
     "header": "TRADE ANALIZER",
+    "alert": {
+        "cretedUser": "Usuario Creado Exitosamente",
+        "emailExist": "El Correo Electrónico ya Existe.",
+        "useraccess": "Acceso Autorizado.",
+        "useraccessdenied": "El Usuario no Existe en la Base de Datos."
+    },
     "colorMode": {
         "dark": "Oscuro",
         "light": "Claro"
@@ -58,17 +64,11 @@
         "reset": "Reiniciar"
     },
     "account": {
-        "firstName": "Nombre completo",
-        "lastName": "Apellidos",
+        "fullName": "Nombre completo",
+        "email": "Correo Electrónico",
+        "password": "Contraseña",
         "phoneNumber": "Número de Telefono",
-        "email": "Email",
-        "address": {
-            "address": "Dirección",
-            "addressMsg": "Nombre y Número de la Calle"
-        },
-        "country": "Pais",
-        "state": "Departamento / Estado",
-        "city": "Ciudad"
+        "country": "Pais"
     },
     "signIn": {
         "signIn": "Iniciar sesión",
@@ -95,5 +95,31 @@
         "proFeatures": "Caracteristicas",
         "disclaimer": "Descargo de Responsabilidad.",
         "terms": "Terminos y Condiciones."
+    },
+    "signUpShema": {
+        "fullname": {
+            "required": "El campo Nombre Completo es obligatorio",
+            "matches": "El nombre solo puede contener letras"
+        },
+        "email": {
+            "required": "El email es obligatorio",
+            "email": "El formato del email no es valido"
+        },
+        "password": {
+            "required": "La contraseña es obligatoria",
+            "min": "La contraseña es muy corta - debe tener al menos 6 caracteres.",
+            "matches": "La contraseña debe contener letras, números y símbolos."
+        }
+    },
+    "signInShema": {
+        "email": {
+            "required": "El email es obligatorio",
+            "email": "El formato del email no es valido"
+        },
+        "password": {
+            "required": "La contraseña es obligatoria",
+            "min": "La contraseña es muy corta - debe tener al menos 6 caracteres.",
+            "matches": "La contraseña debe contener letras, números y símbolos."
+        }
     }
 }

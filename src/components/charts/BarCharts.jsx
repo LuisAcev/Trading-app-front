@@ -1,14 +1,16 @@
 import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
+
 import { useEffect, useRef } from "react";
-import { data } from "../../db/candelDb";
+import { useGetCandleDataQuery } from "../../api/chartsApi/candleApi";
 
 export const BarCharts = (props) => {
   const {  colors: { backgroundColor = "white" } = {} } = props;
-
+  const { data, error, isLoading } = useGetCandleDataQuery("tsla");
   const chartContainerRef = useRef();
 
   useEffect(() => {
+    if (!data) return;
     const handleResize = () => {
       chart.applyOptions({ width: chartContainerRef.current.clientWidth });
     };
@@ -29,7 +31,7 @@ export const BarCharts = (props) => {
     });
 
     // Get data
-    newSeries.setData(data.data);
+    newSeries.setData(data.dataCandle.candelCharts);
 
     window.addEventListener("resize", handleResize);
 
