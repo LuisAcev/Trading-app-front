@@ -4,7 +4,9 @@
         "cretedUser": "User created successfully",
         "emailExist": "The email is already exist.",
         "useraccess": "Authorized Access.",
-        "useraccessdenied": "User does not Exist."
+        "useraccessdenied": "User does not Exist.",
+        "userUpdate": "The user has been Updated",
+        "userDelete": "The user has been Deleted"
     },
     "colorMode": {
         "dark": "Dark",
@@ -58,30 +60,51 @@
     "calculator": {
         "calculator": "Calculator",
         "depositCurrency": "DEPOSIT CURRENCY",
-        "currency": "CURRENCY",
-        "tradeSize": "TRADE SIZE",
-        "pipAmount": "PIP AMOUNT",
-        "reset": "Reset"
+        "currency": "INSTRUMENT",
+        "pip": "Pips",
+        "pipSize": "1 Pip Size",
+        "calculate": "CALCULATE",
+        "price":"Precio",
+        "lotes":"Lots (trade size)",
+        "instrument": {
+            "eur": "European Union",
+            "usd": "United States Dollar"
+        }
     },
     "account": {
         "fullName": "Full name",
         "email": "Email",
         "password": "Password",
-        "phoneNumber": "Phone Number",
-        "country": "Country"
+        "phoneNumber": "Cellphone",
+        "country": "Country",
+        "avatar": "Avatar",
+        "edit": "Edit",
+        "update": {
+            "button": "Update",
+            "buttonText": "Are you sure to Update this account?",
+            "agree": "Agree",
+            "disagree": "Disagree"
+        },
+        "delete": {
+            "button": "Delete",
+            "buttonText": "Are you sure to Delete this account?",
+            "agree": "Agree",
+            "disagree": "Disagree"
+        }
     },
     "signIn": {
-        "signIn": "Sign in",
+        "signIn": "Sign In",
         "email": "Email",
         "password": "Password",
         "forgotPass": "Forgot your password?",
         "or": "or",
         "singInGoogle": "Sign in with Google",
         "haveAccount": "Don't have an account?  ",
-        "singUp": " Sign Up"
+        "singUp": " Sign Up",
+        "signInLogged": "Come In"
     },
     "signUp": {
-        "signUp": "Sign up",
+        "signUp": "Sign Up",
         "fullName": " Full name",
         "email": "email",
         "password": "password",
@@ -94,30 +117,45 @@
         "text": "Analyze the assets with the greatest potential in the financial markets, invest like a professional in a quick and convenient way, just as Trade Analyzer can offer. It's as easy as signing up and starting your analysis. What are you waiting for?",
         "proFeatures": "Features",
         "disclaimer": "Disclaimer.",
-        "terms": "Terms."
+        "terms": "Terms"
     },
     "signUpShema": {
         "fullname": {
-            "required": "Full name is mandatory.",
+            "required": "Full name is a required field.",
             "matches": "Name can only contain letters."
         },
         "email": {
-            "required": "Email is mandatory.",
+            "required": "Email is a required field.",
             "email": "Email format is not valid."
         },
         "password": {
-            "required": "Password is mandatory.",
+            "required": "Password is a required field.",
             "min": "Password is too short - should be 6 chars minimum.",
             "matches": "Password must contain letters, numbers and symbols."
         }
     },
     "signInShema": {
         "email": {
-            "required": "Email is mandatory.",
+            "required": "Email is a required field.",
             "email": "Email format is not valid."
         },
         "password": {
-            "required": "Password is mandatory.",
+            "required": "Password is a required field.",
+            "min": "Password is too short - should be 6 chars minimum.",
+            "matches": "Password must contain letters, numbers and symbols."
+        }
+    },
+    "accountShema": {
+        "fullname": {
+            "required": "Full name is a required field.",
+            "matches": "Name can only contain letters."
+        },
+        "email": {
+            "required": "Email is a required field.",
+            "email": "Email format is not valid."
+        },
+        "password": {
+            "required": "Password is a required field.",
             "min": "Password is too short - should be 6 chars minimum.",
             "matches": "Password must contain letters, numbers and symbols."
         }

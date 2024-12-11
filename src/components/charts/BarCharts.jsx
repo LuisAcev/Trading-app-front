@@ -41,7 +41,7 @@ export const BarCharts = (props) => {
       chart.remove();
     };
   }, [data, backgroundColor]);
-
+console.log(error)
   return (
     <Box
       ref={chartContainerRef}

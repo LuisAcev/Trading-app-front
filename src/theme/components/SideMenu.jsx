@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import MenuContent from "./MenuContent";
 import OptionsMenu from "./OptionMenu";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -25,6 +26,7 @@ const Drawer = styled(MuiDrawer)({
 
 export default function SideMenu() {
   const { t } = useTranslation();
+  const { fullname, email, img } = useSelector((user) => user.userSlice);
   return (
     <Drawer
       variant="permanent"
@@ -38,7 +40,7 @@ export default function SideMenu() {
       <Box
         sx={{
           display: "flex",
-          justifyContent:"center",
+          justifyContent: "center",
           mt: "calc(var(--template-frame-height, 0px) + 4px)",
           p: 1.5,
         }}
@@ -52,7 +54,7 @@ export default function SideMenu() {
             fontOpticalSizing: "auto",
             fontWeight: "BOLD",
             fontStyle: "italic",
-            fontSize:23,
+            fontSize: 23,
             color: "primary.main",
             ...theme.applyStyles("dark", {
               color: "primary.light",
@@ -78,7 +80,7 @@ export default function SideMenu() {
         <Avatar
           sizes="small"
           alt="owner"
-          src="https://es.azeheb.com/blog/wp-content/uploads/2017/03/4.jpg"
+          src={img}
           sx={{ width: 40, height: 42 }}
         />
         <Box sx={{ mr: "auto" }}>
@@ -86,10 +88,10 @@ export default function SideMenu() {
             variant="body2"
             sx={{ fontWeight: 500, lineHeight: "16px" }}
           >
-            Luis Fe
+            {fullname}
           </Typography>
           <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            TestRiac@email.com
+            {email}
           </Typography>
         </Box>
         <OptionsMenu />

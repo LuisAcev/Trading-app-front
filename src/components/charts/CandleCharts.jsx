@@ -7,7 +7,7 @@ import { useGetCandleDataQuery } from "../../api/chartsApi/candleApi";
 export const CandleCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {} } = props;
 
-  const { data, error, isLoading } = useGetCandleDataQuery("tsla");
+  const { data, error, isLoading } = useGetCandleDataQuery("NVDA");
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -45,7 +45,9 @@ export const CandleCharts = (props) => {
       chart.remove();
     };
   }, [data, backgroundColor]);
+ //TODO
 
+//  console.log(error)
   return (
     <>
       {isLoading ? (

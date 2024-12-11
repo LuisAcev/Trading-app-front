@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
@@ -12,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useSnackbar } from "notistack";
 import AppTheme from "./theme/AppTheme";
 import { GoogleIcon } from "./CustomIcons";
@@ -22,9 +25,10 @@ import { LanguageFlag } from "../components/LanguageFlags";
 import { dataLenguage } from "../../db/lenguageDb";
 import ColorModeIconDropdown from "../ColorModeIconDropdown";
 import { getSignUpSchema } from "../../models/signUp.js";
-import { useEffect, useState } from "react";
-import i18next from "i18next";
 import { usePostUsersMutation } from "../../api/userApi/userApi.js";
+import { InputAdornment } from "@mui/material";
+import { usersAdded } from "../../store/slices/usersSlice.js";
+import { useDispatch } from "react-redux";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -71,13 +75,16 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 export const SignUp = (props) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [schema, setSchema] = useState(getSignUpSchema());
+  const [showPassword, setShowPassword] = useState(false);
+  const [schema] = useState(getSignUpSchema(t));
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-  const [postUsers, { data, error, isLoading }] = usePostUsersMutation();
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
+  const [postUsers] = usePostUsersMutation();
+  const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   const handelRedirect = () => {
@@ -88,7 +95,8 @@ export const SignUp = (props) => {
 
   const onSubmit = async (body) => {
     try {
-      await postUsers(body).unwrap();
+      const dataBody = await postUsers(body).unwrap();
+      dispatch(usersAdded(dataBody.user));
       enqueueSnackbar(t("alert.cretedUser"), { variant: "success" });
       navigate(`/dashboard/charts/c`, {
         replace: true,
@@ -98,19 +106,6 @@ export const SignUp = (props) => {
       console.error("Error:", err);
     }
   };
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setSchema(getSignUpSchema());
-    };
-
-    i18next.on("languageChanged", handleLanguageChange);
-
-    return () => {
-      i18next.off("languageChanged", handleLanguageChange);
-    };
-  }, []);
-
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -175,13 +170,36 @@ export const SignUp = (props) => {
                 required
                 fullWidth
                 name="password"
-                placeholder="••••••"
-                type="password"
+                placeholder="•••••••••"
+                type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
                 variant="outlined"
                 helperText={errors.password?.message}
                 error={!!errors.password}
                 {...register("password")}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          onClick={() => setShowPassword((show) => !show)}
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "transparent", // Evita el cambio de fondo
+                              boxShadow: "none", // Elimina sombras o resaltados adicionales
+                            },
+                          }}
+                        >
+                          {showPassword ? (
+                            <RemoveRedEyeOutlinedIcon />
+                          ) : (
+                            <VisibilityOffOutlinedIcon />
+                          )}
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
             </FormControl>
             <Button type="submit" fullWidth variant="contained">

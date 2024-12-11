@@ -24,7 +24,7 @@ export const usersApi = createApi({
       }),
     }),
     putUsers: builder.mutation({
-      query: (id, body) => ({
+      query: ({id, body}) => ({
         url: `/users/${id}`,
         method: "PUT",
         body,

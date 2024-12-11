@@ -14,26 +14,28 @@ import { LanguageFlag } from "../../../components/LanguageFlags";
 import { dataLenguage } from "../../../../db/lenguageDb";
 import { useTranslation } from "react-i18next";
 import SocialMedias from "./SocialMedias";
+import { useSelector } from "react-redux";
 
 export default function AppAppBar() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const { isLoading } = useSelector((item) => item.userSlice);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
   const handleSignIn = () => {
-    navigate(`/sign_in`, {
-      replace: true,
-    });
+    navigate(`/sign_in`, {});
+  };
+
+  const handleIsLogged = () => {
+    navigate(`/dashboard/charts/c`, {});
   };
 
   const handleSignUp = () => {
-    navigate(`/sign_up`, {
-      replace: true,
-    });
+    navigate(`/sign_up`, {});
   };
 
   return (
@@ -58,16 +60,32 @@ export default function AppAppBar() {
         >
           <SocialMedias />
           <LanguageFlag data={dataLenguage} />
+
+          {/* Buttons sign in y sign up */}
+
           <ColorModeIconDropdown />
-          <Button
-            color="primary"
-            variant="text"
-            onClick={handleSignIn}
-            size="small"
-            sx={{ backgroundColor: "#102848" }}
-          >
-            {t("signIn.signIn")}
-          </Button>
+          
+          {isLoading ? (
+            <Button
+              color="primary"
+              variant="text"
+              onClick={handleIsLogged}
+              size="small"
+              sx={{ backgroundColor: "#102848" }}
+            >
+              {t("signIn.signInLogged")}
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              variant="text"
+              onClick={handleSignIn}
+              size="small"
+              sx={{ backgroundColor: "#102848" }}
+            >
+              {t("signIn.signIn")}
+            </Button>
+          )}
           <Button
             color="primary"
             variant="text"
@@ -114,12 +132,22 @@ export default function AppAppBar() {
               </Box>
 
               <MenuItem>
-                <Button color="primary" variant="contained" fullWidth onClick={handleSignUp} >
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  onClick={handleSignUp}
+                >
                   {t("signUp.signUp")}
                 </Button>
               </MenuItem>
               <MenuItem>
-                <Button color="primary" variant="contained" fullWidth onClick={handleSignIn}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  fullWidth
+                  onClick={handleSignIn}
+                >
                   {t("signIn.signIn")}
                 </Button>
               </MenuItem>

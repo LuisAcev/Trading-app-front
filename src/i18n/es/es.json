@@ -4,7 +4,9 @@
         "cretedUser": "Usuario Creado Exitosamente",
         "emailExist": "El Correo Electrónico ya Existe.",
         "useraccess": "Acceso Autorizado.",
-        "useraccessdenied": "El Usuario no Existe en la Base de Datos."
+        "useraccessdenied": "El Usuario no Existe en la Base de Datos.",
+        "userUpdate": "El usuario ha sido Actualizado",
+        "userDelete": "El usuario ha sido Eliminado"
     },
     "colorMode": {
         "dark": "Oscuro",
@@ -58,17 +60,37 @@
     "calculator": {
         "calculator": "Calculadora",
         "depositCurrency": "MONEDA DE DEPÓSITO",
-        "currency": "DIVISA",
-        "tradeSize": "CANTIDAD A COMERCIAR",
-        "pipAmount": "CANTIDAD DE PIP",
-        "reset": "Reiniciar"
+        "currency": "INSTRUMENTO",
+        "pip": "Pips",
+        "pipSize": "Valor 1 Pip",
+        "calculate": "CALCULAR",
+        "price":"Precio",
+        "lotes":"Tamaño Transacción",
+        "instrument": {
+            "eur": "Union Europea",
+            "usd": "Dollar Estadounidense"
+        }
     },
     "account": {
         "fullName": "Nombre completo",
         "email": "Correo Electrónico",
         "password": "Contraseña",
-        "phoneNumber": "Número de Telefono",
-        "country": "Pais"
+        "phoneNumber": "Celular",
+        "country": "Pais",
+        "avatar": "Avatar",
+        "edit": "Editar",
+        "update": {
+            "button": "Actualizar",
+            "buttonText": "Esta seguro que desea Actualizar esta cuenta?",
+            "agree": "Acepto",
+            "disagree": "No Acepto"
+        },
+        "delete": {
+            "button": "Eliminar",
+            "buttonText": "Esta seguro que desea Eliminar esta cuenta ?",
+            "agree": "Acepto",
+            "disagree": "No Acepto"
+        }
     },
     "signIn": {
         "signIn": "Iniciar sesión",
@@ -78,7 +100,8 @@
         "or": "ó",
         "singInGoogle": "Iniciar sesión con Google",
         "haveAccount": "Tiene una Cuenta?  ",
-        "singUp": " Registrese"
+        "singUp": " Registrese",
+        "signInLogged": "Entrar"
     },
     "signUp": {
         "signUp": "Registrese",
@@ -94,7 +117,7 @@
         "text": "Analice los activos con mayor potencial en los mercados financieros, invierta como un profesional, de una manera rápida y cómoda como solo Trade Analizer puede ofrecer, es tan fácil como registrarse y empieza a analizar, que esperas?.",
         "proFeatures": "Caracteristicas",
         "disclaimer": "Descargo de Responsabilidad.",
-        "terms": "Terminos y Condiciones."
+        "terms": "Terminos y Condiciones"
     },
     "signUpShema": {
         "fullname": {
@@ -112,6 +135,21 @@
         }
     },
     "signInShema": {
+        "email": {
+            "required": "El email es obligatorio",
+            "email": "El formato del email no es valido"
+        },
+        "password": {
+            "required": "La contraseña es obligatoria",
+            "min": "La contraseña es muy corta - debe tener al menos 6 caracteres.",
+            "matches": "La contraseña debe contener letras, números y símbolos."
+        }
+    },
+    "accountShema": {
+        "fullname": {
+            "required": "El campo Nombre Completo es obligatorio",
+            "matches": "El nombre solo puede contener letras"
+        },
         "email": {
             "required": "El email es obligatorio",
             "email": "El formato del email no es valido"

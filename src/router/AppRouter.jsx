@@ -4,7 +4,6 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Dashboard from "../theme/Dashboard";
 import { ChartDraw } from "../components/chartDraw/ChartDraw";
 import { Calculator } from "../components/MenuContentButtons/calculator/Calculator";
 import { EconomicCalendar } from "../components/MenuContentButtons/economicCalendar/EconomicCalendar";
@@ -17,6 +16,7 @@ import { SignIn } from "../theme/singIn/SinIn";
 import { SignUp } from "../theme/signUp/SignUp";
 import { Home } from "../theme/home/Home";
 import { Account } from "../components/MenuContentButtons/account/Account";
+import { ProtectedRoute } from "./pretectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter(
   [
@@ -34,7 +34,8 @@ const router = createBrowserRouter(
     },
     {
       path: "dashboard",
-      element: <Dashboard />,
+      element: <ProtectedRoute />,
+
       children: [
         {
           path: "charts",
@@ -49,7 +50,8 @@ const router = createBrowserRouter(
         { path: "economic_calendar", element: <EconomicCalendar /> },
         { path: "calculator", element: <Calculator /> },
         { path: "trading_ideas", element: <TradingIdeas /> },
-        { path: "account", element: <Account /> }
+        { path: "account", element: <Account /> },
+        { path: "home", element: <Navigate to="/"/> },
       ],
     },
     {

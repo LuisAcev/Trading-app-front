@@ -11,22 +11,43 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 import MenuButton from "./MenuButton";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { usersdelete } from "../../store/slices/usersSlice";
+import { usePutUsersMutation } from "../../api/userApi/userApi";
+import { useNavigate } from "react-router-dom";
 
 const MenuItem = styled(MuiMenuItem)({
   margin: "2px 0",
 });
 const StyleMenu = styled(Menu)(({ theme }) => ({
   "& .MuiPaper-root": {
-    backgroundColor: 'hsl(220, 30%, 7%)',
+    backgroundColor: "hsl(220, 30%, 7%)",
   },
 }));
 
 export default function OptionsMenu() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { _id } = useSelector((ietm) => ietm.userSlice);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const { t } = useTranslation();
+  const [putUsers] = usePutUsersMutation();
+  const dispatch = useDispatch();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleAccountButton = () => {
+    setAnchorEl(null);
+    navigate(`/dashboard/account`, {
+      replace: true,
+    });
+  };
+  const handleCloseSeason = async () => {
+    dispatch(usersdelete());
+    await putUsers({ id: _id, body: { isLoading: false } });
+    navigate(`/`, {
+      replace: true,
+    });
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -60,11 +81,13 @@ export default function OptionsMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>{t("login.account")}</MenuItem>
-        <MenuItem onClick={handleClose}>{t("login.settings")}</MenuItem>
+        <MenuItem onClick={handleAccountButton}>{t("login.account")}</MenuItem>
         <Divider />
         <MenuItem
-          onClick={handleClose}
+          onClick={() => {
+            handleClose();
+            handleCloseSeason();
+          }}
           sx={{
             [`& .${listItemIconClasses.root}`]: {
               ml: "auto",
@@ -74,7 +97,7 @@ export default function OptionsMenu() {
         >
           <ListItemText>{t("login.log_out")}</ListItemText>
           <ListItemIcon>
-            <LogoutRoundedIcon fontSize="small" />
+            <LogoutRoundedIcon fontSize="small" sx={{ marginLeft: "0.4rem" }} />
           </ListItemIcon>
         </MenuItem>
       </StyleMenu>

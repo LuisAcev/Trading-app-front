@@ -11,7 +11,6 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import CalculateIcon from "@mui/icons-material/Calculate";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import SettingsIcon from "@mui/icons-material/Settings";
 import FacebookIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Divider } from "@mui/material";
@@ -50,7 +49,6 @@ export default function MenuContent() {
   ];
 
   const secondaryListItems = [
-    { text: t("menucontent.settings"), icon: <SettingsIcon /> },
     { text: t("menucontent.account"), icon: <AccountBoxIcon />, redir: "account"},
     { text: t("menucontent.home"), icon: <HomeRoundedIcon />, redir: "home" },
   ];

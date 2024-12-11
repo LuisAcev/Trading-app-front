@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
+import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { useSnackbar } from "notistack";
 import { ForgotPassword } from "./ForgotPassword";
 import { GoogleIcon } from "./CustomIcons";
@@ -24,8 +26,13 @@ import { LanguageFlag } from "../components/LanguageFlags";
 import { dataLenguage } from "../../db/lenguageDb";
 import ColorModeIconDropdown from "../ColorModeIconDropdown";
 import { getSignInSchema } from "../../models/signIn.js";
-import i18next from "i18next";
-import { useGetUsersQuery } from "../../api/userApi/userApi.js";
+import {
+  useGetUsersQuery,
+  usePutUsersMutation,
+} from "../../api/userApi/userApi.js";
+import { useDispatch, useSelector } from "react-redux";
+import { usersAdded, usersUpdate } from "../../store/slices/usersSlice.js";
+import { InputAdornment } from "@mui/material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -72,11 +79,14 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export const SignIn = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [schema, setSchema] = useState(getSignInSchema());
+  const { _id } = useSelector((ietm) => ietm.userSlice);
+  const [putUsers] = usePutUsersMutation();
+  const [schema] = useState(getSignInSchema(t));
   const [queryArgs, setQueryArgs] = useState(null);
   const [open, setOpen] = useState(false);
   const [errorHandel, setErrorHandel] = useState(false); // Cambiado a false por defecto
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { data, error, isLoading } = useGetUsersQuery(queryArgs, {
     skip: !queryArgs,
   });
@@ -85,10 +95,15 @@ export const SignIn = (props) => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
+  const dispatch = useDispatch();
 
-  const handelRedirectDashBoard = () => {
-    enqueueSnackbar(t("alert.useraccess"), { variant: "success" });
+  const handelRedirectDashBoard = async (data) => {
+    await putUsers({ id: data._id, body: { isLoading: true } });
+    enqueueSnackbar(t("alert.useraccess"), {
+      variant: "success",
+      autoHideDuration: 1000,
+    });
     navigate(`/dashboard/charts/c`, {
       replace: true,
     });
@@ -116,26 +131,19 @@ export const SignIn = (props) => {
   useEffect(() => {
     if (isSubmitting) {
       if (error) {
-        enqueueSnackbar(t("alert.useraccessdenied"), { variant: "error" });
+        enqueueSnackbar(t("alert.useraccessdenied"), {
+          variant: "error",
+          autoHideDuration: 1000,
+        });
         setErrorHandel(true);
-        setIsSubmitting(false); 
+        setIsSubmitting(false);
       } else if (data) {
-        handelRedirectDashBoard();
+        handelRedirectDashBoard(data);
+        dispatch(usersAdded(data));
+        dispatch(usersUpdate({ isLoading: true }));
       }
     }
   }, [error, data, isSubmitting, enqueueSnackbar]);
-
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      setSchema(getSignInSchema());
-    };
-
-    i18next.on("languageChanged", handleLanguageChange);
-
-    return () => {
-      i18next.off("languageChanged", handleLanguageChange);
-    };
-  }, []);
 
   return (
     <AppTheme {...props}>
@@ -195,14 +203,37 @@ export const SignIn = (props) => {
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 name="password"
-                placeholder="••••••"
-                type="password"
+                placeholder="•••••••••"
+                type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 autoFocus
                 required
                 fullWidth
                 variant="outlined"
                 {...register("password")}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Button
+                          onClick={() => setShowPassword((show) => !show)}
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "transparent", // Evita el cambio de fondo
+                              boxShadow: "none", // Elimina sombras o resaltados adicionales
+                            },
+                          }}
+                        >
+                          {showPassword ? (
+                            <RemoveRedEyeOutlinedIcon />
+                          ) : (
+                            <VisibilityOffOutlinedIcon />
+                          )}
+                        </Button>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
             </FormControl>
             <ForgotPassword open={open} handleClose={handleClose} />
