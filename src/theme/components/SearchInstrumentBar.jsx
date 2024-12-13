@@ -1,44 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAutocomplete } from "@mui/base/useAutocomplete";
 import { styled } from "@mui/system";
-import { useGetCalculatorDataQuery } from "../../../../api/calculatroApi/CalculatroApi";
 import { useDispatch } from "react-redux";
-import { assetToCalc } from "../../../../store/slices/calcSlice";
+import { instrumentChart } from "../../store/slices/chartInstrument";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
-export const DepositInstrumentBar = ({ options, setValue, setcalcValues }) => {
-  const [values, setValues] = useState(options[0]);
+export const SearchInstrumentBar = ({ options }) => {
+  const [value, setValue] = useState(options[0]);
   const [inputValue, setInputValue] = useState("");
-  const { data } = useGetCalculatorDataQuery();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    try {
-      if (!data) {
-        return;
-      }
-
-      if (data) {
-        const selectInstrument = data.dataCal.filter(
-          (item) => item.symbol === values.replace("/", "")
-        );
-        dispatch(
-          assetToCalc({
-            instrument: selectInstrument[0].symbol,
-            price: parseFloat(selectInstrument[0].value),
-            pipSize: selectInstrument[0].fx
-              ? selectInstrument[0].symbol === "USDJPY"
-                ? 0.001
-                : 0.0001
-              : 1,
-            fx: selectInstrument[0].fx ? true : false,
-          })
-        );
-        setcalcValues(0);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [data, values]);
 
   const {
     getRootProps,
@@ -50,28 +20,31 @@ export const DepositInstrumentBar = ({ options, setValue, setcalcValues }) => {
   } = useAutocomplete({
     id: "controlled-state-demo",
     options,
-    values,
+    value,
     onChange: (event, newValue) => {
-      setValues(newValue);
-      setValue("instrument", newValue);
+      setValue(newValue);
+      dispatch(instrumentChart({ instrument: newValue?.split("|")[0].trim() }));
     },
     inputValue,
     onInputChange: (event, newInputValue) => setInputValue(newInputValue),
   });
 
   return (
-    <Layout>
+    <Layout sx={{ zIndex: 3 }}>
       <AutocompleteWrapper>
         <AutocompleteRoot
           {...getRootProps()}
           className={focused ? "Mui-focused" : ""}
         >
           <Input {...getInputProps()} />
+          <SearchRoundedIcon fontSize="large" />
         </AutocompleteRoot>
         {groupedOptions.length > 0 && (
           <Listbox {...getListboxProps()}>
             {groupedOptions.map((option, index) => (
-              <Option key={index} {...getOptionProps({ option, index })}>{option}</Option>
+              <Option key={index} {...getOptionProps({ option, index })}>
+                {option}
+              </Option>
             ))}
           </Listbox>
         )}
@@ -105,13 +78,14 @@ const grey = {
 
 const AutocompleteWrapper = styled("div")`
   position: relative;
+
 `;
 
 const AutocompleteRoot = styled("div")(
   ({ theme }) => `
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
-  border-radius: 8px;
+  border-radius: 50px;
   color: ${theme.palette.mode === "dark" ? grey[300] : grey[500]};
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
@@ -122,7 +96,7 @@ const AutocompleteRoot = styled("div")(
   gap: 5px;
   padding-right: 5px;
   overflow: hidden;
-  width: 200px;
+  justify-content: flex-end;
 
   &.Mui-focused {
     border-color: ${blue[400]};
@@ -143,7 +117,7 @@ const AutocompleteRoot = styled("div")(
 
 const Input = styled("input")(
   ({ theme }) => `
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-family: inherit;
   font-weight: 400;
   line-height: 1.5;
@@ -151,10 +125,12 @@ const Input = styled("input")(
   background: inherit;
   border: none;
   border-radius: inherit;
-  padding: 8px 12px;
+  padding: 6px 50px;
   outline: 0;
   flex: 1 0 auto;
-`
+  text-align: center; 
+  width:500px
+ `
 );
 
 const Listbox = styled("ul")(
@@ -164,7 +140,6 @@ const Listbox = styled("ul")(
   box-sizing: border-box;
   padding: 6px;
   margin: 12px 0;
-  max-width: 320px;
   border-radius: 12px;
   overflow: auto;
   outline: 0;

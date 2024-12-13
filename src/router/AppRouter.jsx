@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         { path: "calculator", element: <Calculator /> },
         { path: "trading_ideas", element: <TradingIdeas /> },
         { path: "account", element: <Account /> },
-        { path: "home", element: <Navigate to="/"/> },
+        { path: "home", element: <Navigate to="/" /> },
       ],
     },
     {

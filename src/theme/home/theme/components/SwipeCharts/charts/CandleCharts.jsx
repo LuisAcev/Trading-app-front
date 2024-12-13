@@ -1,14 +1,13 @@
 import { Box } from "@mui/material";
 import { createChart, ColorType } from "lightweight-charts";
 import { useEffect, useRef } from "react";
-import { useGetCandleDataQuery } from "../../api/chartsApi/candleApi";
-import { useSelector } from "react-redux";
-
+import { useGetCandleDataQuery } from "../../../../../../api/chartsApi/candleApi";
 
 export const CandleCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const instrumentShow = useSelector((item)=>item.instrumentSlice.instrument);
-  const { data, error, isLoading } = useGetCandleDataQuery(instrumentShow);
+  const { data, error, isLoading } = useGetCandleDataQuery(
+    instrument.split("|")[0]
+  );
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -19,12 +18,28 @@ export const CandleCharts = (props) => {
     };
     const chart = createChart(chartContainerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: backgroundColor },
-        textColor: "black",
+        background: { type: ColorType.Solid, color: 'rgba(7, 46, 61, 0.4)' },
+        textColor: "white",
         attributionLogo: false,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 700,
+      height: 550,
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        },
+      },
+      watermark: {
+        visible: true,
+        fontSize: 32,
+        horzAlign: "center",
+        vertAlign: "center",
+        color: "rgba(233, 128, 8)",
+        text: instrument,
+      },
     });
     chart.timeScale().fitContent();
     // chart Type
@@ -47,9 +62,9 @@ export const CandleCharts = (props) => {
       chart.remove();
     };
   }, [data, backgroundColor]);
- //TODO
+  //TODO
 
-//  console.log(error)
+  //  console.log(error)
   return (
     <>
       {isLoading ? (
@@ -58,16 +73,11 @@ export const CandleCharts = (props) => {
         <Box
           ref={chartContainerRef}
           sx={{
-            position: "absolute",
-            top: "9rem",
-            left: { xs: "1rem", md: "17rem", lg: "17rem" },
-            right: { xs: "1rem", md: "2rem", lg: "2rem" },
-            bottom: 0,
             borderColor: "black",
             borderWidth: "4px",
-            borderRadius: "0.5rem",
             borderStyle: "solid",
-            zIndex: 1,
+            width: { xs: "100%", md: "90%", lg: "90%" },
+            marginTop: "1rem",
           }}
         ></Box>
       )}

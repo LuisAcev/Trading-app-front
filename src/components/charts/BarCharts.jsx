@@ -3,10 +3,12 @@ import { createChart } from "lightweight-charts";
 
 import { useEffect, useRef } from "react";
 import { useGetCandleDataQuery } from "../../api/chartsApi/candleApi";
+import { useSelector } from "react-redux";
 
 export const BarCharts = (props) => {
   const {  colors: { backgroundColor = "white" } = {} } = props;
-  const { data, error, isLoading } = useGetCandleDataQuery("tsla");
+  const instrumentShow = useSelector((item)=>item.instrumentSlice.instrument);
+  const { data, error, isLoading } = useGetCandleDataQuery(instrumentShow);
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export const BarCharts = (props) => {
       layout: {
         background: { type: "solid", color: "white" },
         textColor: "black",
+        attributionLogo: false,
       },
       width: chartContainerRef.current.clientWidth,
       height: 700,
@@ -41,7 +44,10 @@ export const BarCharts = (props) => {
       chart.remove();
     };
   }, [data, backgroundColor]);
-console.log(error)
+
+  //TODO quitar error y crear pagina de error
+console.log(error);
+
   return (
     <Box
       ref={chartContainerRef}

@@ -79,7 +79,6 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export const SignIn = (props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { _id } = useSelector((ietm) => ietm.userSlice);
   const [putUsers] = usePutUsersMutation();
   const [schema] = useState(getSignInSchema(t));
   const [queryArgs, setQueryArgs] = useState(null);

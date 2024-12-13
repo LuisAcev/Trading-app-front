@@ -3,10 +3,12 @@ import { createChart } from "lightweight-charts";
 
 import { useEffect, useRef } from "react";
 import { useGetlineDataQuery } from "../../api/chartsApi/lineApi";
+import { useSelector } from "react-redux";
 
 export const LineCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {} } = props;
-  const { data, error, isLoading } = useGetlineDataQuery("btcusd");
+  const instrumentShow = useSelector((item)=>item.instrumentSlice.instrument);
+  const { data, error, isLoading } = useGetlineDataQuery(instrumentShow);
 
   const chartContainerRef = useRef();
 
@@ -20,6 +22,7 @@ export const LineCharts = (props) => {
       layout: {
         background: { type: "solid", color: "white" },
         textColor: "black",
+        attributionLogo: false,
       },
       width: chartContainerRef.current.clientWidth,
       height: 700,

@@ -1,13 +1,13 @@
 import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
 import { useEffect, useRef } from "react";
-import { useGetlineDataQuery } from "../../api/chartsApi/lineApi";
-import { useSelector } from "react-redux";
+import { useGetlineDataQuery } from "../../../../../../api/chartsApi/lineApi.js";
 
 export const AreaCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {} } = props;
-  const instrumentShow = useSelector((item) => item.instrumentSlice.instrument);
-  const { data, error, isLoading } = useGetlineDataQuery(instrumentShow);
+  const { colors: { backgroundColor = "white" } = {}, instrument } = props;
+  const { data, error, isLoading } = useGetlineDataQuery(
+    instrument.split("|")[0]
+  );
 
   const chartContainerRef = useRef();
 
@@ -20,23 +20,39 @@ export const AreaCharts = (props) => {
 
     const chart = createChart(chartContainerRef.current, {
       layout: {
-        background: { type: "solid", color: "white" },
-        textColor: "black",
+        background: { type: "solid", color: "rgba(7, 46, 61, 0.4)" },
+        textColor: "white",
         attributionLogo: false,
       },
       width: chartContainerRef.current.clientWidth,
-      height: 700,
+      height: 550,
+      grid: {
+        vertLines: {
+          visible: false,
+        },
+        horzLines: {
+          visible: false,
+        },
+      },
+
+      watermark: {
+        visible: true,
+        fontSize: 32,
+        horzAlign: "center",
+        vertAlign: "center",
+        color: "rgba(233, 128, 8)",
+        text: instrument,
+      },
     });
 
-        // chart Type
-        const newSeries = chart.addAreaSeries({
-          lineColor: "#2962FF",
-          topColor: "#2962FF",
-          bottomColor: "rgba(41, 98, 255, 0.28)",
-          lineWidth: 2,
-          
-        });
-    
+    // chart Type
+    const newSeries = chart.addAreaSeries({
+      lineColor: "#65686e",
+      topColor: "#06225b",
+      bottomColor: "rgba(30, 114, 27, 0.75)",
+      lineWidth: 2,
+    });
+
     // Tooltips (marcador de posicion y precio) //
 
     const container = chartContainerRef.current;
@@ -72,7 +88,9 @@ export const AreaCharts = (props) => {
         const dataArea = param.seriesData.get(newSeries);
         const price =
           dataArea.value !== undefined ? dataArea.value : dataArea.close;
-        toolTip.innerHTML = `<div style="color: ${"rgba( 38, 166, 154, 1)"}; font-weight: bolder; margin-top:2px; ">${instrumentShow}</div><div style="font-size: 24px; margin: 1px 0px; color: ${"black"}">
+        toolTip.innerHTML = `<div style="color: ${"rgba( 38, 166, 154, 1)"}; font-weight: bolder; margin-top:2px; ">${
+          instrument.split("|")[0]
+        }</div><div style="font-size: 20px; margin: 1px 0px; color: ${"black"}">
           $${Math.round(100 * price) / 100}
           </div><div style="color: ${"black"}; font-weight: bolder;">
           ${dateStr}
@@ -97,7 +115,6 @@ export const AreaCharts = (props) => {
 
     // Get data
     newSeries.setData(data.datalinea.lineCharts);
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -115,16 +132,11 @@ export const AreaCharts = (props) => {
         <Box
           ref={chartContainerRef}
           sx={{
-            position: "absolute",
-            top: "9rem",
-            left: { xs: "1rem", md: "17rem", lg: "17rem" },
-            right: { xs: "1rem", md: "2rem", lg: "2rem" },
-            bottom: 0,
             borderColor: "black",
             borderWidth: "4px",
-            borderRadius: "0.5rem",
             borderStyle: "solid",
-            zIndex: 1,
+            width: { xs: "100%", md: "90%", lg: "90%" },
+            marginTop: "1rem",
           }}
         ></Box>
       )}

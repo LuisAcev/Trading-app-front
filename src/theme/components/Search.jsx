@@ -1,28 +1,11 @@
-import * as React from "react";
 import FormControl from "@mui/material/FormControl";
-import InputAdornment from "@mui/material/InputAdornment";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useTranslation } from "react-i18next";
+import { instrumentName } from "../../db/assets.js";
+import { SearchInstrumentBar } from "./SearchInstrumentBar";
 
 export default function Search() {
-  const { t } = useTranslation();
   return (
     <FormControl sx={{ width: { xs: "100%", md: "50ch", lg:"90ch" } }} variant="outlined">
-      <OutlinedInput
-        size="small"
-        id="search"
-        placeholder={t("search")}
-        sx={{ flexGrow: 1 }}
-        startAdornment={
-          <InputAdornment position="start" sx={{ color: "text.primary" }}>
-            <SearchRoundedIcon fontSize="small" />
-          </InputAdornment>
-        }
-        inputProps={{
-          "aria-label": "search",
-        }}
-      />
+      <SearchInstrumentBar options ={instrumentName}/>
     </FormControl>
   );
 }

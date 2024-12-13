@@ -7,7 +7,7 @@ export const ChartDraw = () => {
   return (
     <Box>
       <SelectFigure />
-      <Outlet  />
+      <Outlet />
     </Box>
   );
 };

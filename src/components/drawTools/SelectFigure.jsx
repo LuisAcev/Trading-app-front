@@ -24,8 +24,7 @@ export const SelectFigure = () => {
   const [textValue, setTextValue] = useState("Text");
   const [changeText, setChangeText] = useState(false);
 
-  // TODO borrar este state y utulizar redux
-  const [id, setId] = useState(); // Id temporal
+  const [id, setId] = useState(); 
 
   const pointsConcat = pointsInit.concat(pointsEnd);
 

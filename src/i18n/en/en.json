@@ -64,8 +64,8 @@
         "pip": "Pips",
         "pipSize": "1 Pip Size",
         "calculate": "CALCULATE",
-        "price":"Precio",
-        "lotes":"Lots (trade size)",
+        "price": "Precio",
+        "lotes": "Lots (trade size)",
         "instrument": {
             "eur": "European Union",
             "usd": "United States Dollar"
@@ -117,7 +117,20 @@
         "text": "Analyze the assets with the greatest potential in the financial markets, invest like a professional in a quick and convenient way, just as Trade Analyzer can offer. It's as easy as signing up and starting your analysis. What are you waiting for?",
         "proFeatures": "Features",
         "disclaimer": "Disclaimer.",
-        "terms": "Terms"
+        "terms": {
+            "terms": "Terms and conditions.",
+            "legend": "Trading is an activity that involves a high level of risk, and you could lose more than what you invested."
+        },
+        "features": {
+            "product": {
+                "product": "Product Features",
+                "legend": " TRADE ANALYZER is a software designed with modern technology, its FrontEnd implements libraries such as React, React Hook Forms, Redux Toolkit, endpoint creation with RTK Query, Material UI user interface components, among others. The Backend is developed with Node.js and Express, which manages a RESTful API. Security is implemented through JSON Web Tokens (JWT) and connects to a non-relational database in MongoDB using Mongoose, which stores and processes market and user information."
+            },
+            "items": {
+                "dashboard": "Analyze the assets of your choice, manage your users, calculate the exact lot size per operation, among other features.",
+                "mobil": "Analyze the assets of your choice, manage your users, calculate the exact lot size per operation, among other features."
+            }
+        }
     },
     "signUpShema": {
         "fullname": {

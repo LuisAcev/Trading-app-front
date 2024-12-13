@@ -49,7 +49,6 @@ export default function SideMenu() {
           component="span"
           variant="h1"
           sx={(theme) => ({
-            fontSize: "inherit",
             fontFamily: "Noto Sans JP, sans-serif",
             fontOpticalSizing: "auto",
             fontWeight: "BOLD",

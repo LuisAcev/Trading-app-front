@@ -21,7 +21,7 @@ export const ToggleButtonFigures = ({
   setColor,
   textValue,
 }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

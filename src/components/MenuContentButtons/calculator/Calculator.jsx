@@ -280,7 +280,7 @@ export const Calculator = (props) => {
                 disabled
                 color={"primary"}
                 name="total"
-                value={`   $${calcValues}`}
+                value={`   $ ${calcValues}`}
                 variant="outlined"
                 sx={{
                   ".MuiOutlinedInput-root": {

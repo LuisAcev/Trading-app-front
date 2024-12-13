@@ -64,8 +64,8 @@
         "pip": "Pips",
         "pipSize": "Valor 1 Pip",
         "calculate": "CALCULAR",
-        "price":"Precio",
-        "lotes":"Tamaño Transacción",
+        "price": "Precio",
+        "lotes": "Tamaño Transacción",
         "instrument": {
             "eur": "Union Europea",
             "usd": "Dollar Estadounidense"
@@ -117,7 +117,20 @@
         "text": "Analice los activos con mayor potencial en los mercados financieros, invierta como un profesional, de una manera rápida y cómoda como solo Trade Analizer puede ofrecer, es tan fácil como registrarse y empieza a analizar, que esperas?.",
         "proFeatures": "Caracteristicas",
         "disclaimer": "Descargo de Responsabilidad.",
-        "terms": "Terminos y Condiciones"
+        "terms": {
+            "terms": "Terminos y Condiciones.",
+            "legend": "El trading es una actividad que conlleva un alto nivel de riesgo y podría llegar a perder más de lo invertido. "
+        },
+        "features": {
+            "product": {
+                "product": "Caracteristicas del Producto",
+                "legend": " TRADE ANALIZER es un software diseñado con tecnología moderna, por su parte el FrontEnd implementa librerías como React, React Hook Forms, Redux toolkit, creación de endpoints con RTK Query, componentes de interfaz de usuario Material UI, entre otros. El backend está desarrollado con Node.js y Express, que gestiona una  API RESTful. La seguridad se implementa mediante JSON Web Tokens (JWT) y se conecta a una base de datos no relacional en MongoDB utilizando Mongoose el cual almacena y procesa la información del mercado y de usuarios."
+            },
+            "items": {
+                "dashboard": "Analiza los activos de tu preferencia, gestiona tus usuarios, calcula el lotaje exacto por operación, entre otras funcionalidades.",
+                "mobil": "Analiza los activos de tu preferencia, gestiona tus usuarios, calcula el lotaje exacto por operación, entre otras funcionalidades."
+            }
+        }
     },
     "signUpShema": {
         "fullname": {

@@ -6,48 +6,10 @@ import MuiChip from "@mui/material/Chip";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import DevicesRoundedIcon from "@mui/icons-material/DevicesRounded";
 import EdgesensorHighRoundedIcon from "@mui/icons-material/EdgesensorHighRounded";
 import ViewQuiltRoundedIcon from "@mui/icons-material/ViewQuiltRounded";
-
-const items = [
-  {
-    icon: <ViewQuiltRoundedIcon />,
-    title: "Dashboard",
-    description:
-      "This item could provide a snapshot of the most important metrics or data points related to the product.",
-    imageLight: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/dash-light.png")`,
-    imageDark: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/dash-dark.png")`,
-  },
-  {
-    icon: <EdgesensorHighRoundedIcon />,
-    title: "Mobile integration",
-    description:
-      "This item could provide information about the mobile app version of the product.",
-    imageLight: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/mobile-light.png")`,
-    imageDark: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/mobile-dark.png")`,
-  },
-  {
-    icon: <DevicesRoundedIcon />,
-    title: "Available on all platforms",
-    description:
-      "This item could let users know the product is available on all platforms, such as web, mobile, and desktop.",
-    imageLight: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/devices-light.png")`,
-    imageDark: `url("${
-      process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
-    }/static/images/templates/templates-images/devices-dark.png")`,
-  },
-];
+import { useTranslation } from "react-i18next";
+import { SwipeFeatures } from "./features/SwipeFeatures";
 
 const Chip = styled(MuiChip)(({ theme }) => ({
   variants: [
@@ -74,10 +36,35 @@ export function MobileLayout({
   handleItemClick,
   selectedFeature,
 }) {
+  const items = [
+    {
+      icon: <ViewQuiltRoundedIcon />,
+      title: "Dashboard",
+      description:
+        "This item could provide a snapshot of the most important metrics or data points related to the product.",
+      imageLight: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/dash-light.png")`,
+      imageDark: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/dash-dark.png")`,
+    },
+    {
+      icon: <EdgesensorHighRoundedIcon />,
+      title: "Mobile",
+      description:
+        "This item could provide information about the mobile app version of the product.",
+      imageLight: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/mobile-light.png")`,
+      imageDark: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/mobile-dark.png")`,
+    },
+  ];
   if (!items[selectedItemIndex]) {
     return null;
   }
-
   return (
     <Box
       sx={{
@@ -98,26 +85,7 @@ export function MobileLayout({
         ))}
       </Box>
       <Card variant="outlined">
-        <Box
-          sx={(theme) => ({
-            mb: 2,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            minHeight: 280,
-            backgroundImage: "var(--items-imageLight)",
-            ...theme.applyStyles("dark", {
-              backgroundImage: "var(--items-imageDark)",
-            }),
-          })}
-          style={
-            items[selectedItemIndex]
-              ? {
-                  "--items-imageLight": items[selectedItemIndex].imageLight,
-                  "--items-imageDark": items[selectedItemIndex].imageDark,
-                }
-              : {}
-          }
-        />
+        <SwipeFeatures />
         <Box sx={{ px: 2, pb: 2 }}>
           <Typography
             gutterBottom
@@ -135,12 +103,35 @@ export function MobileLayout({
 }
 
 export default function Features() {
+  const { t } = useTranslation();
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-
   const handleItemClick = (index) => {
     setSelectedItemIndex(index);
   };
-
+  const items = [
+    {
+      icon: <ViewQuiltRoundedIcon />,
+      title: "Dashboard",
+      description: t("home.features.items.dashboard"),
+      imageLight: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/dash-light.png")`,
+      imageDark: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/dash-dark.png")`,
+    },
+    {
+      icon: <EdgesensorHighRoundedIcon />,
+      title: "Mobile",
+      description: t("home.features.items.mobil"),
+      imageLight: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/mobile-light.png")`,
+      imageDark: `url("${
+        process.env.TEMPLATE_IMAGE_URL || "https://mui.com"
+      }/static/images/templates/templates-images/mobile-dark.png")`,
+    },
+  ];
   const selectedFeature = items[selectedItemIndex];
 
   return (
@@ -152,15 +143,13 @@ export default function Features() {
           gutterBottom
           sx={{ color: "text.primary" }}
         >
-          Product features
+          {t("home.features.product.product")}
         </Typography>
         <Typography
           variant="body1"
           sx={{ color: "text.secondary", mb: { xs: 2, sm: 4 } }}
         >
-          Provide a brief overview of the key features of the product. For
-          example, you could list the number of features, their types or
-          benefits, and add-ons.
+          {t("home.features.product.legend")}
         </Typography>
       </Box>
       <Box
@@ -188,7 +177,7 @@ export default function Features() {
                   (theme) => ({
                     p: 2,
                     height: "100%",
-                    width: "100%",
+                    width: "70%",
                     "&:hover": {
                       backgroundColor: (theme.vars || theme).palette.action
                         .hover,
@@ -233,39 +222,14 @@ export default function Features() {
         <Box
           sx={{
             display: { xs: "none", sm: "flex" },
-            width: { xs: "100%", md: "70%" },
+            width: { xs: "100%", md: "57%", lg: "57%" },
             height: "var(--items-image-height)",
+            padding: "0 0 0 0",
+            margin: "0 0 0 0",
           }}
         >
-          <Card
-            variant="outlined"
-            sx={{
-              height: "100%",
-              width: "100%",
-              display: { xs: "none", sm: "flex" },
-              pointerEvents: "none",
-            }}
-          >
-            <Box
-              sx={(theme) => ({
-                m: "auto",
-                width: 420,
-                height: 500,
-                backgroundSize: "contain",
-                backgroundImage: "var(--items-imageLight)",
-                ...theme.applyStyles("dark", {
-                  backgroundImage: "var(--items-imageDark)",
-                }),
-              })}
-              style={
-                items[selectedItemIndex]
-                  ? {
-                      "--items-imageLight": items[selectedItemIndex].imageLight,
-                      "--items-imageDark": items[selectedItemIndex].imageDark,
-                    }
-                  : {}
-              }
-            />
+          <Card variant="outlined">
+            <SwipeFeatures />
           </Card>
         </Box>
       </Box>
