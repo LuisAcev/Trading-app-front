@@ -17,12 +17,14 @@ import { SignUp } from "../theme/signUp/SignUp";
 import { Home } from "../theme/home/Home";
 import { Account } from "../components/MenuContentButtons/account/Account";
 import { ProtectedRoute } from "./pretectedRoute/ProtectedRoute";
+import { ErrorPage } from "../components/error/ErrorPage";
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
       element: <Home />,
+      errorElement: <ErrorPage />
     },
     {
       path: "sign_in",
@@ -35,6 +37,7 @@ const router = createBrowserRouter(
     {
       path: "dashboard",
       element: <ProtectedRoute />,
+      errorElement: <ErrorPage />,
 
       children: [
         {

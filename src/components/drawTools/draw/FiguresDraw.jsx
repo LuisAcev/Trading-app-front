@@ -59,7 +59,7 @@ export const FiguresDraw = ({
     <Box
       ref={boxRef}
       sx={{
-        width: { md: "90%", lg: "190%" }, // corregir para que no desplace objetos
+        width: { md: "90%", lg: "210%" }, // corregir para que no desplace objetos
         height: { md: "67vh", lg: "67vh" },
         overflow: "hidden",
         marginTop: 5,

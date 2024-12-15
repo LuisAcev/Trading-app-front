@@ -29,6 +29,7 @@ import { usePostUsersMutation } from "../../api/userApi/userApi.js";
 import { InputAdornment } from "@mui/material";
 import { usersAdded } from "../../store/slices/usersSlice.js";
 import { useDispatch } from "react-redux";
+import { signIpPopup } from "../../fireBase/signInWithPopup.js";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -91,6 +92,31 @@ export const SignUp = (props) => {
     navigate(`/sign_in`, {
       replace: true,
     });
+  };
+  const googleOnSubmit = async () => {
+    try {
+      const { user } = await signIpPopup();
+      const body = {
+        fullname: user.displayName,
+        email: user.email,
+        password: `${user.email}${user.proactiveRefresh.errorBackoff}`,
+      };
+      const dataBody = await postUsers(body).unwrap();
+      dispatch(usersAdded(dataBody.user));
+      enqueueSnackbar(t("alert.cretedUser"), {
+        variant: "success",
+        autoHideDuration: 1000,
+      });
+      navigate(`/dashboard/charts/c`, {
+        replace: true,
+      });
+    } catch (err) {
+      enqueueSnackbar(t("alert.emailExist"), {
+        variant: "error",
+        autoHideDuration: 1000,
+      });
+      console.error("Error:", err);
+    }
   };
 
   const onSubmit = async (body) => {
@@ -213,7 +239,7 @@ export const SignUp = (props) => {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => console.log("google!!!")}
+              onClick={googleOnSubmit}
               startIcon={<GoogleIcon />}
             >
               {t("signUp.singUpGoogle")}

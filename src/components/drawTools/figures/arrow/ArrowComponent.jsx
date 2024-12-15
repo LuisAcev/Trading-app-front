@@ -27,7 +27,11 @@ export const ArrowComponent = ({
 
   const handDesleSelect = () => {
     setSelect(false);
-    setSelected(true);
+    if (typeof setSelected === "function") {
+      setSelected(true);
+    } else {
+      console.warn("setSelected no es una función válida");
+    }
   };
 
   useEffect(() => {

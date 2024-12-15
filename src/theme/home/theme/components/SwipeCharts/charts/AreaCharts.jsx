@@ -2,12 +2,14 @@ import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 import { useGetlineDataQuery } from "../../../../../../api/chartsApi/lineApi.js";
+import { Loading } from "../../../../../../components/loading/Loading.jsx";
 
 export const AreaCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const { data, error, isLoading } = useGetlineDataQuery(
-    instrument.split("|")[0]
-  );
+  const { data, isLoading } = useGetlineDataQuery({
+    asset: instrument.split("|")[0].trim(),
+    time: "1d",
+  });
 
   const chartContainerRef = useRef();
 
@@ -127,7 +129,7 @@ export const AreaCharts = (props) => {
   return (
     <>
       {isLoading ? (
-        <Box> ... Laring chart </Box>
+        <Loading />
       ) : (
         <Box
           ref={chartContainerRef}

@@ -2,14 +2,15 @@ import { Box } from "@mui/material";
 import { createChart, ColorType } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 import { useGetCandleDataQuery } from "../../../../../../api/chartsApi/candleApi";
+import { Loading } from "../../../../../../components/loading/Loading";
 
 export const CandleCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const { data, error, isLoading } = useGetCandleDataQuery(
-    instrument.split("|")[0]
-  );
+  const { data, isLoading } = useGetCandleDataQuery({
+    asset: instrument.split("|")[0].trim(),
+    time: "1d",
+  });
   const chartContainerRef = useRef();
-
   useEffect(() => {
     if (!data) return;
 
@@ -18,7 +19,7 @@ export const CandleCharts = (props) => {
     };
     const chart = createChart(chartContainerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: 'rgba(7, 46, 61, 0.4)' },
+        background: { type: ColorType.Solid, color: "rgba(7, 46, 61, 0.4)" },
         textColor: "white",
         attributionLogo: false,
       },
@@ -68,7 +69,7 @@ export const CandleCharts = (props) => {
   return (
     <>
       {isLoading ? (
-        <Box> ... Laring chart </Box>
+        <Loading />
       ) : (
         <Box
           ref={chartContainerRef}

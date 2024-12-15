@@ -3,12 +3,16 @@ import { createChart, ColorType } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 import { useGetCandleDataQuery } from "../../api/chartsApi/candleApi";
 import { useSelector } from "react-redux";
-
+import { Loading } from "../loading/Loading";
+import { ErrorPage } from "../error/ErrorPage";
 
 export const CandleCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const instrumentShow = useSelector((item)=>item.instrumentSlice.instrument);
-  const { data, error, isLoading } = useGetCandleDataQuery(instrumentShow);
+  const { colors: { backgroundColor = "white" } = {} } = props;
+  const { instrument, time } = useSelector((item) => item.instrumentSlice);
+  const { data, error, isLoading } = useGetCandleDataQuery({
+    asset: instrument ? instrument : "AAPL",
+    time: time,
+  });
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -47,13 +51,20 @@ export const CandleCharts = (props) => {
       chart.remove();
     };
   }, [data, backgroundColor]);
- //TODO
 
-//  console.log(error)
+  // Errores
+
+  const errorStatus =
+    error?.data?.status || error?.status || ` Status: Error 404 `;
+  const errorMessage =
+    error?.data?.error || error?.error || "OOPS !!! This page has crashed. ";
+
   return (
     <>
       {isLoading ? (
-        <Box> ... Laring chart </Box>
+        <Loading />
+      ) : error ? (
+        <ErrorPage status={errorStatus} err={errorMessage} />
       ) : (
         <Box
           ref={chartContainerRef}

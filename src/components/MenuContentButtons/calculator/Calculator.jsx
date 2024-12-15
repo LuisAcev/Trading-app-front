@@ -16,6 +16,7 @@ import { DepositCoinBar } from "./secction/DepositCoinBar";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { ErrorPage } from "../../../components/error/ErrorPage";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   alignSelf: "center",
@@ -81,222 +82,240 @@ export const Calculator = (props) => {
     },
     mode: "onChange",
   });
-
   const onSubmit = (item) => {
-    let pipSizePip = calcaInfo.fx ? item.pipSize * item.pip : 0;
-    let priceLotes = item.price * item.lotes;
-    setcalcValues(priceLotes + pipSizePip);
+    try {
+      let pipSizePip = calcaInfo.fx ? item.pipSize * item.pip : 0;
+      let priceLotes = item.price * item.lotes;
+      setcalcValues(priceLotes + pipSizePip);
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   useEffect(() => {
     setValue("price", calcaInfo.price);
     setValue("pipSize", calcaInfo.pipSize);
-  }, [calcaInfo]);
+  }, [calcaInfo, setValue]);
 
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <CalculatorContainer direction="column" justifyContent="space-between">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            marginRight: { xs: 1, lg: 5 },
-            gap: 1,
-          }}
-        ></Box>
-        <Card variant="outlined" sx={{ background: "rgba(23, 59, 127, 0.54)" }}>
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{
-              fontSize: "clamp(2rem, 10vw, 2.15rem)",
-              textAlign: "center",
-              width: "100%",
-            }}
+    <>
+      {Object.keys(errors).length === 0 ? (
+        <AppTheme {...props}>
+          <CssBaseline enableColorScheme />
+          <CalculatorContainer
+            direction="column"
+            justifyContent="space-between"
           >
-            {t("calculator.calculator")}
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-          >
-            <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
-              {/* DEPOSIT CURRENCY */}
-
-              <FormControl>
-                <FormLabel
-                  htmlFor="depositCurrency"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {t("calculator.depositCurrency")}
-                </FormLabel>
-                <DepositCoinBar setValue={setValue} options={depositCurrency} />
-              </FormControl>
-
-              {/* INSTRUMENT */}
-              <FormControl>
-                <FormLabel
-                  htmlFor="currency"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {t("calculator.currency")}
-                </FormLabel>
-                <DepositInstrumentBar
-                  setValue={setValue}
-                  setcalcValues={setcalcValues}
-                  options={instrument}
-                />
-              </FormControl>
-            </Box>
-
-            <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-              {/* PRECIO DEL INSTRUMENTO */}
-
-              <FormControl>
-                <FormLabel
-                  htmlFor="price"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {`${t("calculator.price")} ${calcaInfo.instrument}`}
-                </FormLabel>
-                <TextField
-                  disabled
-                  name="price"
-                  required
-                  fullWidth
-                  id="price"
-                  color={"primary"}
-                  type="number"
-                  sx={{
-                    ".MuiOutlinedInput-root": {
-                      backgroundColor: "rgba(67, 70, 75, 0.5)",
-                      fontSize: 17,
-                      width: "200px",
-                    },
-                  }}
-                  {...register("price")}
-                />
-              </FormControl>
-
-              {/* LOTES */}
-
-              <FormControl>
-                <FormLabel
-                  htmlFor="lotes"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {t("calculator.lotes")}{" "}
-                </FormLabel>
-                <TextField
-                  name="lotes"
-                  required
-                  fullWidth
-                  id="lotes"
-                  color={"primary"}
-                  type="number"
-                  inputProps={{
-                    step: "any",
-                  }}
-                  sx={{
-                    ".MuiOutlinedInput-root": {
-                      backgroundColor: "rgba(67, 70, 75, 0.5)",
-                    },
-                  }}
-                  {...register("lotes")}
-                />
-              </FormControl>
-            </Box>
-
-            <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-              {/* VALOR DE UN 1 PIP */}
-
-              <FormControl>
-                <FormLabel
-                  htmlFor="pipSize"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {t("calculator.pipSize")}
-                </FormLabel>
-                <TextField
-                  name="pipSize"
-                  disabled={!calcaInfo.fx}
-                  required
-                  fullWidth
-                  id="pipSize"
-                  color={"primary"}
-                  type="number"
-                  inputProps={{
-                    step: "any",
-                  }}
-                  sx={{
-                    ".MuiOutlinedInput-root": {
-                      backgroundColor: "rgba(67, 70, 75, 0.5)",
-                    },
-                  }}
-                  {...register("pipSize")}
-                />
-              </FormControl>
-
-              {/* PIPS */}
-
-              <FormControl>
-                <FormLabel
-                  htmlFor="pip"
-                  sx={{ color: "#e1621e", fontWeight: "bold" }}
-                >
-                  {t("calculator.pip")}{" "}
-                </FormLabel>
-                <TextField
-                  name="pip"
-                  disabled={!calcaInfo.fx}
-                  required
-                  fullWidth
-                  id="pip"
-                  color={"primary"}
-                  type="number"
-                  sx={{
-                    ".MuiOutlinedInput-root": {
-                      backgroundColor: "rgba(67, 70, 75, 0.5)",
-                    },
-                  }}
-                  {...register("pip")}
-                />
-              </FormControl>
-            </Box>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ fontWeight: "bold" }}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                marginRight: { xs: 1, lg: 5 },
+                gap: 1,
+              }}
+            ></Box>
+            <Card
+              variant="outlined"
+              sx={{ background: "rgba(23, 59, 127, 0.54)" }}
             >
-              {t("calculator.calculate")}
-            </Button>
-            <Box sx={{ textAlign: "center" }}>
-              <TextField
-                disabled
-                color={"primary"}
-                name="total"
-                value={`   $ ${calcValues}`}
-                variant="outlined"
+              <Typography
+                component="h1"
+                variant="h4"
                 sx={{
-                  ".MuiOutlinedInput-root": {
-                    backgroundColor: "transparent",
-                    fontWeight: 50,
-                    fontSize: 40,
-                    textAlign: "center",
-                    width: "18rem",
-                    border: "none",
-                  },
+                  fontSize: "clamp(2rem, 10vw, 2.15rem)",
+                  textAlign: "center",
+                  width: "100%",
                 }}
-              />
-            </Box>
-          </Box>
-        </Card>
-      </CalculatorContainer>
-    </AppTheme>
+              >
+                {t("calculator.calculator")}
+              </Typography>
+              <Box
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+              >
+                <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+                  {/* DEPOSIT CURRENCY */}
+
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="depositCurrency"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {t("calculator.depositCurrency")}
+                    </FormLabel>
+                    <DepositCoinBar
+                      setValue={setValue}
+                      options={depositCurrency}
+                    />
+                  </FormControl>
+
+                  {/* INSTRUMENT */}
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="currency"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {t("calculator.currency")}
+                    </FormLabel>
+                    <DepositInstrumentBar
+                      setValue={setValue}
+                      setcalcValues={setcalcValues}
+                      options={instrument}
+                    />
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                  {/* PRECIO DEL INSTRUMENTO */}
+
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="price"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {`${t("calculator.price")} ${calcaInfo.instrument}`}
+                    </FormLabel>
+                    <TextField
+                      disabled
+                      name="price"
+                      required
+                      fullWidth
+                      id="price"
+                      color={"primary"}
+                      type="number"
+                      sx={{
+                        ".MuiOutlinedInput-root": {
+                          backgroundColor: "rgba(67, 70, 75, 0.5)",
+                          fontSize: 17,
+                          width: "200px",
+                        },
+                      }}
+                      {...register("price")}
+                    />
+                  </FormControl>
+
+                  {/* LOTES */}
+
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="lotes"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {t("calculator.lotes")}{" "}
+                    </FormLabel>
+                    <TextField
+                      name="lotes"
+                      required
+                      fullWidth
+                      id="lotes"
+                      color={"primary"}
+                      type="number"
+                      inputProps={{
+                        step: "any",
+                      }}
+                      sx={{
+                        ".MuiOutlinedInput-root": {
+                          backgroundColor: "rgba(67, 70, 75, 0.5)",
+                        },
+                      }}
+                      {...register("lotes")}
+                    />
+                  </FormControl>
+                </Box>
+
+                <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+                  {/* VALOR DE UN 1 PIP */}
+
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="pipSize"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {t("calculator.pipSize")}
+                    </FormLabel>
+                    <TextField
+                      name="pipSize"
+                      disabled={!calcaInfo.fx}
+                      required
+                      fullWidth
+                      id="pipSize"
+                      color={"primary"}
+                      type="number"
+                      inputProps={{
+                        step: "any",
+                      }}
+                      sx={{
+                        ".MuiOutlinedInput-root": {
+                          backgroundColor: "rgba(67, 70, 75, 0.5)",
+                        },
+                      }}
+                      {...register("pipSize")}
+                    />
+                  </FormControl>
+
+                  {/* PIPS */}
+
+                  <FormControl>
+                    <FormLabel
+                      htmlFor="pip"
+                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                    >
+                      {t("calculator.pip")}{" "}
+                    </FormLabel>
+                    <TextField
+                      name="pip"
+                      disabled={!calcaInfo.fx}
+                      required
+                      fullWidth
+                      id="pip"
+                      color={"primary"}
+                      type="number"
+                      sx={{
+                        ".MuiOutlinedInput-root": {
+                          backgroundColor: "rgba(67, 70, 75, 0.5)",
+                        },
+                      }}
+                      {...register("pip")}
+                    />
+                  </FormControl>
+                </Box>
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {t("calculator.calculate")}
+                </Button>
+                <Box sx={{ textAlign: "center" }}>
+                  <TextField
+                    disabled
+                    color={"primary"}
+                    name="total"
+                    value={`   $ ${calcValues}`}
+                    variant="outlined"
+                    sx={{
+                      ".MuiOutlinedInput-root": {
+                        backgroundColor: "transparent",
+                        fontWeight: 50,
+                        fontSize: 40,
+                        textAlign: "center",
+                        width: "18rem",
+                        border: "none",
+                      },
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Card>
+          </CalculatorContainer>
+        </AppTheme>
+      ) : (
+        <ErrorPage />
+      )}
+    </>
   );
 };

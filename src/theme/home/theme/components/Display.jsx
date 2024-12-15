@@ -1,13 +1,11 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import { SwipeCharts } from "./SwipeCharts/SwipeCharts";
 import { Terms } from "./Terms";
-import { Card } from "@mui/material";
 
 export default function Display() {
   const { t } = useTranslation();

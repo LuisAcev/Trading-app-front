@@ -6,8 +6,28 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuContent from "./MenuContent";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { usePutUsersMutation } from "../../api/userApi/userApi";
+import { useNavigate } from "react-router-dom";
+import { usersdelete } from "../../store/slices/usersSlice";
 
 export default function SideMenuMobile({ open, toggleDrawer }) {
+  const { t } = useTranslation();
+  const { _id } = useSelector((ietm) => ietm.userSlice);
+  const user = useSelector((item) => item.userSlice);
+  const [putUsers] = usePutUsersMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleCloseSeason = async () => {
+    dispatch(usersdelete());
+    await putUsers({ id: _id, body: { isLoading: false } });
+    navigate(`/`, {
+      replace: true,
+    });
+  };
+
   return (
     <Drawer
       anchor="right"
@@ -34,12 +54,12 @@ export default function SideMenuMobile({ open, toggleDrawer }) {
           >
             <Avatar
               sizes="small"
-              alt="Riley Carter"
-              src="/static/images/avatar/7.jpg"
+              alt="fullname"
+              src={user.img}
               sx={{ width: 24, height: 24 }}
             />
             <Typography component="p" variant="h6">
-              Riley Carter
+              {user.fullname}
             </Typography>
           </Stack>
         </Stack>
@@ -53,8 +73,9 @@ export default function SideMenuMobile({ open, toggleDrawer }) {
             variant="outlined"
             fullWidth
             startIcon={<LogoutRoundedIcon />}
+            onClick={handleCloseSeason}
           >
-            Logout
+            {t("login.log_out")}
           </Button>
         </Stack>
       </Stack>

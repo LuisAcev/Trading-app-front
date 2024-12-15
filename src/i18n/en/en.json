@@ -6,7 +6,11 @@
         "useraccess": "Authorized Access.",
         "useraccessdenied": "User does not Exist.",
         "userUpdate": "The user has been Updated",
-        "userDelete": "The user has been Deleted"
+        "userDelete": "The user has been Deleted",
+        "loading": "Loading..."
+    },
+    "error": {
+        "button": "Return Home"
     },
     "colorMode": {
         "dark": "Dark",
@@ -35,13 +39,16 @@
         "line": "Line",
         "text": "Text",
         "delete": "delete",
-        "color": "Color"
+        "color": "Color | double click"
     },
     "search": "Search...",
     "timeFrames": {
-        "1m": "1 Month",
-        "1d": "Daily",
-        "1h": "1 Hour"
+        "1m": "1M",
+        "1w": "1W",
+        "1d": "1D",
+        "1month": "1 Month",
+        "1week": "1 Week",
+        "1day": "Daily"
     },
     "charType": {
         "candle": "Candle",

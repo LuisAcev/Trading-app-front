@@ -30,9 +30,10 @@ import {
   useGetUsersQuery,
   usePutUsersMutation,
 } from "../../api/userApi/userApi.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { usersAdded, usersUpdate } from "../../store/slices/usersSlice.js";
 import { InputAdornment } from "@mui/material";
+import { signIpPopup } from "../../fireBase/signInWithPopup.js";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -97,6 +98,30 @@ export const SignIn = (props) => {
   } = useForm({ mode: "onChange", resolver: yupResolver(schema) });
   const dispatch = useDispatch();
 
+  const googleOnSubmit = async () => {
+    try {
+      if (isLoading) {
+        return;
+      }
+      const { user } = await signIpPopup();
+      const body = {
+        email: user.email,
+        password: `${user.email}${user.proactiveRefresh.errorBackoff}`,
+      };
+      setQueryArgs({ email: body.email, password: body.password });
+      enqueueSnackbar(t("alert.useraccess"), {
+        variant: "success",
+        autoHideDuration: 1000,
+      });
+      navigate(`/dashboard/charts/c`, {
+        replace: true,
+      });
+    } catch (err) {
+      enqueueSnackbar(`Error:${err.errorCode}`, { variant: "error" });
+      console.error("Error:", err);
+    }
+  };
+
   const handelRedirectDashBoard = async (data) => {
     await putUsers({ id: data._id, body: { isLoading: true } });
     enqueueSnackbar(t("alert.useraccess"), {
@@ -142,8 +167,25 @@ export const SignIn = (props) => {
         dispatch(usersUpdate({ isLoading: true }));
       }
     }
-  }, [error, data, isSubmitting, enqueueSnackbar]);
+  }, [queryArgs, isSubmitting, data, error, enqueueSnackbar, dispatch]);
 
+  useEffect(() => {
+    if (queryArgs && !isLoading) {
+      
+      if (data) {
+        handelRedirectDashBoard(data);
+        dispatch(usersAdded(data));
+        dispatch(usersUpdate({ isLoading: true }));
+        putUsers({ id: data._id, body: { isLoading: true } });    
+
+      } else if (error) {
+        enqueueSnackbar(t("alert.useraccessdenied"), {
+          variant: "error",
+          autoHideDuration: 1000,
+        });
+      }
+    }
+  }, [data, error, isLoading, queryArgs, dispatch, enqueueSnackbar, t]);
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -254,7 +296,7 @@ export const SignIn = (props) => {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => alert("Sign in with Google")}
+              onClick={googleOnSubmit}
               startIcon={<GoogleIcon />}
             >
               {t("signIn.singInGoogle")}

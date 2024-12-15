@@ -78,7 +78,6 @@ const grey = {
 
 const AutocompleteWrapper = styled("div")`
   position: relative;
-
 `;
 
 const AutocompleteRoot = styled("div")(
@@ -129,7 +128,12 @@ const Input = styled("input")(
   outline: 0;
   flex: 1 0 auto;
   text-align: center; 
-  width:500px
+  width:500px;
+  @media screen and (max-width: 500px) {
+    text-align: right; 
+     padding: 0 0 0 0;
+     font-size: 0.8rem;
+}
  `
 );
 
@@ -154,6 +158,10 @@ const Listbox = styled("ul")(
   box-shadow: 0 4px 6px ${
     theme.palette.mode === "dark" ? "rgba(0,0,0, 0.50)" : "rgba(0,0,0, 0.05)"
   };
+  @media screen and (max-width: 500px) {
+   font-size: 0.7rem;
+    zIndex: 1,
+  }
   `
 );
 

@@ -26,12 +26,18 @@ export const DeleteButton = ({ setEditText }) => {
       setEditText(true);
       deleteUsers(payload._id);
       dispatch(usersdelete());
-      enqueueSnackbar(t("alert.userDelete"), { variant: "success" });
+      enqueueSnackbar(t("alert.userDelete"), {
+        variant: "success",
+        autoHideDuration: 1000,
+      });
       navigate(`/`, {
         replace: true,
       });
     } catch (error) {
-      enqueueSnackbar(`Error: ${error}`, { variant: "error" });
+      enqueueSnackbar(`Error: ${error}`, {
+        variant: "error",
+        autoHideDuration: 1000,
+      });
     }
   };
   const handleClickOpen = () => {

@@ -6,7 +6,11 @@
         "useraccess": "Acceso Autorizado.",
         "useraccessdenied": "El Usuario no Existe en la Base de Datos.",
         "userUpdate": "El usuario ha sido Actualizado",
-        "userDelete": "El usuario ha sido Eliminado"
+        "userDelete": "El usuario ha sido Eliminado",
+        "loading":"Cargando..."
+    },
+    "error": {
+        "button": "Regresar "
     },
     "colorMode": {
         "dark": "Oscuro",
@@ -35,13 +39,16 @@
         "line": "Linea",
         "text": "Texto",
         "delete": "Borrar",
-        "color": "Color"
+        "color":  "Color | doble click"
     },
     "search": "Buscar...",
     "timeFrames": {
-        "1m": "1 Mes",
-        "1d": "1 Dia",
-        "1h": "1 Hora"
+        "1m": "1M",
+        "1w": "1S",
+        "1d": "1D",
+        "1month": "1 Mes",
+        "1week": "1 Semana",
+        "1day": "1 Dia"
     },
     "charType": {
         "candle": "Vela",

@@ -4,8 +4,8 @@ import Paper from "@mui/material/Paper";
 import { TimeFrames } from "./timeFrames/TimeFrames";
 import { FiguresToogle } from "./figures/FiguresToogle";
 import { Box } from "@mui/material";
-import { InstrumentName } from "../instrumentName/InstrumentName";
 import { ChartType } from "./ChartType/ChartType";
+import Search from "../../theme/components/Search";
 
 export const ToggleButtonFigures = ({
   handleFinishArrow,
@@ -46,8 +46,21 @@ export const ToggleButtonFigures = ({
           flexWrap: "wrap",
         })}
       >
-      <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
-        <InstrumentName />
+        <Divider
+          flexItem
+          orientation="vertical"
+          sx={{ display: { md: "none", lg: "none" }, mx: 0.5, my: 1 }}
+        />
+        <Box
+          sx={{
+            display: { md: "none", lg: "none" },
+            width: { xs: "11rem" },
+            Padding: "0 0 0 0",
+          }}
+        >
+          <Search />
+        </Box>
+
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />
         <TimeFrames value={alignment} onChange={handleAlignment} />
         <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} />

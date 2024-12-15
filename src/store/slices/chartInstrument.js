@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   instrument: "",
+  time:"1d"
 };
 
 const instrumentSlice = createSlice({

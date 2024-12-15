@@ -8,8 +8,8 @@ export const candleApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_SERVER_URL }),
   endpoints: (builder) => ({
     getCandleData: builder.query({
-      query: (asset) => ({
-        url: `/assetsdata/candle/${asset}`,
+      query: ({ asset, time }) => ({
+        url: `/assetsdata/candle/${asset}/${time}`,
         method: "GET",
         headers,
       }),

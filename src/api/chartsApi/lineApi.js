@@ -8,8 +8,8 @@ export const lineApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_SERVER_URL }),
   endpoints: (builder) => ({
     getlineData: builder.query({
-      query: (asset) => ({
-        url: `/assetsdata/line/${asset}`,
+      query: ({ asset, time }) => ({
+        url: `/assetsdata/line/${asset}/${time}`,
         method: "GET",
         headers,
       }),

@@ -13,7 +13,7 @@ export const instrument = [
   "AUD/USD",
   "BTC/USD",
   "ETH/USD",
-  "DOT/EUSD",
+  "DOT/USD",
   "XRP/USD",
   "SOL/USD",
 ];

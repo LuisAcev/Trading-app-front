@@ -3,11 +3,16 @@ import { createChart } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 import { useGetlineDataQuery } from "../../api/chartsApi/lineApi";
 import { useSelector } from "react-redux";
+import { Loading } from "../loading/Loading";
+import { ErrorPage } from "../error/ErrorPage";
 
 export const AreaCharts = (props) => {
   const { colors: { backgroundColor = "white" } = {} } = props;
-  const instrumentShow = useSelector((item) => item.instrumentSlice.instrument);
-  const { data, error, isLoading } = useGetlineDataQuery(instrumentShow);
+  const { instrument, time } = useSelector((item) => item.instrumentSlice);
+  const { data, error, isLoading } = useGetlineDataQuery({
+    asset: instrument ? instrument : "AAPL",
+    time: time,
+  });
 
   const chartContainerRef = useRef();
 
@@ -28,15 +33,14 @@ export const AreaCharts = (props) => {
       height: 700,
     });
 
-        // chart Type
-        const newSeries = chart.addAreaSeries({
-          lineColor: "#2962FF",
-          topColor: "#2962FF",
-          bottomColor: "rgba(41, 98, 255, 0.28)",
-          lineWidth: 2,
-          
-        });
-    
+    // chart Type
+    const newSeries = chart.addAreaSeries({
+      lineColor: "#2962FF",
+      topColor: "#2962FF",
+      bottomColor: "rgba(41, 98, 255, 0.28)",
+      lineWidth: 2,
+    });
+
     // Tooltips (marcador de posicion y precio) //
 
     const container = chartContainerRef.current;
@@ -72,7 +76,7 @@ export const AreaCharts = (props) => {
         const dataArea = param.seriesData.get(newSeries);
         const price =
           dataArea.value !== undefined ? dataArea.value : dataArea.close;
-        toolTip.innerHTML = `<div style="color: ${"rgba( 38, 166, 154, 1)"}; font-weight: bolder; margin-top:2px; ">${instrumentShow}</div><div style="font-size: 24px; margin: 1px 0px; color: ${"black"}">
+        toolTip.innerHTML = `<div style="color: ${"rgba( 38, 166, 154, 1)"}; font-weight: bolder; margin-top:2px; ">${instrument}</div><div style="font-size: 24px; margin: 1px 0px; color: ${"black"}">
           $${Math.round(100 * price) / 100}
           </div><div style="color: ${"black"}; font-weight: bolder;">
           ${dateStr}
@@ -107,10 +111,17 @@ export const AreaCharts = (props) => {
     };
   }, [data, backgroundColor]);
 
+  const errorStatus =
+    error?.data?.status || error?.status || ` Status: Error 404 `;
+  const errorMessage =
+    error?.data?.error || error?.error || "OOPS !!! This page has crashed. ";
+
   return (
     <>
       {isLoading ? (
-        <Box> ... Laring chart </Box>
+        <Loading />
+      ) : error ? (
+        <ErrorPage status={errorStatus} err={errorMessage} />
       ) : (
         <Box
           ref={chartContainerRef}
