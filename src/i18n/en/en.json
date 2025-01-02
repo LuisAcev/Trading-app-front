@@ -1,5 +1,5 @@
 {
-    "header": "TRADE ANALIZER",
+    "header": "TRADE ANALYZER",
     "alert": {
         "cretedUser": "User created successfully",
         "emailExist": "The email is already exist.",

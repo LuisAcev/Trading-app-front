@@ -1,5 +1,5 @@
 {
-    "header": "TRADE ANALIZER",
+    "header": "TRADE ANALYZER",
     "alert": {
         "cretedUser": "Usuario Creado Exitosamente",
         "emailExist": "El Correo Electrónico ya Existe.",
@@ -131,7 +131,7 @@
         "features": {
             "product": {
                 "product": "Caracteristicas del Producto",
-                "legend": " TRADE ANALIZER es un software diseñado con tecnología moderna, por su parte el FrontEnd implementa librerías como React, React Hook Forms, Redux toolkit, creación de endpoints con RTK Query, componentes de interfaz de usuario Material UI, entre otros. El backend está desarrollado con Node.js y Express, que gestiona una  API RESTful. La seguridad se implementa mediante JSON Web Tokens (JWT) y se conecta a una base de datos no relacional en MongoDB utilizando Mongoose el cual almacena y procesa la información del mercado y de usuarios."
+                "legend": " TRADE ANALYZER es un software diseñado con tecnología moderna, por su parte el FrontEnd implementa librerías como React, React Hook Forms, Redux toolkit, creación de endpoints con RTK Query, componentes de interfaz de usuario Material UI, entre otros. El backend está desarrollado con Node.js y Express, que gestiona una  API RESTful. La seguridad se implementa mediante JSON Web Tokens (JWT) y se conecta a una base de datos no relacional en MongoDB utilizando Mongoose el cual almacena y procesa la información del mercado y de usuarios."
             },
             "items": {
                 "dashboard": "Analiza los activos de tu preferencia, gestiona tus usuarios, calcula el lotaje exacto por operación, entre otras funcionalidades.",
