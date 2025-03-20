@@ -108,7 +108,9 @@
         "singInGoogle": "Sign in with Google",
         "haveAccount": "Don't have an account?  ",
         "singUp": " Sign Up",
-        "signInLogged": "Come In"
+        "signInLogged": "Come In",
+        "tooltipEmail":"If you are not registered, you can use: example@gmail.com",
+        "tooltipPass":"Password: Ja.3233669*"
     },
     "signUp": {
         "signUp": "Sign Up",

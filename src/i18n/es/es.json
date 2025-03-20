@@ -107,8 +107,10 @@
         "or": "ó",
         "singInGoogle": "Iniciar sesión con Google",
         "haveAccount": "Tiene una Cuenta?  ",
-        "singUp": " Registrese",
-        "signInLogged": "Entrar"
+        "singUp": "Registrese",
+        "signInLogged": "Entrar",
+        "tooltipEmail":"Si no estas registrado puedes usar: example@gmail.com",
+        "tooltipPass":"Contraseña: Ja.3233669*"
     },
     "signUp": {
         "signUp": "Registrese",

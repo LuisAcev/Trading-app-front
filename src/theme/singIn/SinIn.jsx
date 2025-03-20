@@ -171,13 +171,11 @@ export const SignIn = (props) => {
 
   useEffect(() => {
     if (queryArgs && !isLoading) {
-      
       if (data) {
         handelRedirectDashBoard(data);
         dispatch(usersAdded(data));
         dispatch(usersUpdate({ isLoading: true }));
-        putUsers({ id: data._id, body: { isLoading: true } });    
-
+        putUsers({ id: data._id, body: { isLoading: true } });
       } else if (error) {
         enqueueSnackbar(t("alert.useraccessdenied"), {
           variant: "error",
@@ -225,6 +223,7 @@ export const SignIn = (props) => {
             <FormControl>
               <FormLabel htmlFor="email">{t("signIn.email")}</FormLabel>
               <TextField
+                title={t("signIn.tooltipEmail")}
                 autoFocus
                 autoComplete="email"
                 error={!!errors.email}
@@ -232,7 +231,7 @@ export const SignIn = (props) => {
                 helperText={errors.email?.message}
                 type="email"
                 name="email"
-                placeholder="your@email.com"
+                placeholder="example@gmail.com"
                 required
                 variant="outlined"
                 {...register("email")}
@@ -241,10 +240,11 @@ export const SignIn = (props) => {
             <FormControl>
               <FormLabel htmlFor="password">{t("signIn.password")}</FormLabel>
               <TextField
+                title={t("signIn.tooltipPass")}
                 error={!!errors.password}
                 helperText={errors.password?.message}
                 name="password"
-                placeholder="•••••••••"
+                placeholder="Ja.3233669*"
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 autoFocus
