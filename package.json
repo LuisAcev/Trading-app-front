@@ -35,7 +35,7 @@
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
-  "homepage": "https://github.com/LuisAcev/Trading-app-front",
+  "homepage": "https://luisacev.github.io/Trading-app-front",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

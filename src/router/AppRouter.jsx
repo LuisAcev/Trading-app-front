@@ -3,6 +3,7 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
+  createHashRouter // para el despliegue ya que rgithub no reconoce rutas dinamicas
 } from "react-router-dom";
 import { ChartDraw } from "../components/chartDraw/ChartDraw";
 import { Calculator } from "../components/MenuContentButtons/calculator/Calculator";
@@ -19,7 +20,7 @@ import { Account } from "../components/MenuContentButtons/account/Account";
 import { ProtectedRoute } from "./pretectedRoute/ProtectedRoute";
 import { ErrorPage } from "../components/error/ErrorPage";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: "/",
