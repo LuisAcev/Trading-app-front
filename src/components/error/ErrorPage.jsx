@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import error404 from "./assets/error404.png";
 
 export const ErrorPage = ({ status, err }) => {
   return (
@@ -21,7 +22,7 @@ export const ErrorPage = ({ status, err }) => {
           <Box
             component="img"
             alt="Under development"
-            src="/helpers/error-404.png"
+            src={error404}
             sx={{
               display: "inline-block",
               height: "auto",
@@ -34,7 +35,7 @@ export const ErrorPage = ({ status, err }) => {
           {status ? ` Status: ${status} ` : ` Status: Error 404 `}
         </Typography>
         <Typography
-          color="text.secondary" 
+          color="text.secondary"
           variant="body1"
           sx={{ textAlign: "center" }}
         >

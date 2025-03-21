@@ -1,10 +1,12 @@
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
+import dashboard from "./assets/dashboard.jpg";
+import Cal from "./assets/Cal.jpg";
+import CE from "./assets/CE.jpg";
+import Account from "./assets/Account.jpg";
+import home from "./assets/home.jpg";
 import "./styles.css";
 
 // import required modules
@@ -28,29 +30,20 @@ export const SwipeFeatures = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <img
-            style={{ width: "100%" }}
-            src="/helpers/dashboard.jpg"
-            alt="Dashboard"
-          />{" "}
+          <img style={{ width: "100%" }} src={dashboard} alt="Dashboard" />{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <img style={{ width: "77%" }} src="/helpers/Cal.jpg" alt="Cal" />{" "}
+          <img style={{ width: "77%" }} src={Cal} alt="Cal" />{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <img style={{ width: "76%" }} src="/helpers/CE.jpg" alt="CE" />{" "}
+          <img style={{ width: "76%" }} src={CE} alt="CE" />{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <img
-            style={{ width: "80%" }}
-            src="/helpers/Account.jpg"
-            alt="Account"
-          />{" "}
+          <img style={{ width: "80%" }} src={Account} alt="Account" />{" "}
         </SwiperSlide>
         <SwiperSlide>
-          <img style={{ width: "76%" }} src="/helpers/home.jpg" alt="home" />{" "}
+          <img style={{ width: "76%" }} src={home} alt="home" />{" "}
         </SwiperSlide>
-
       </Swiper>
     </>
   );
