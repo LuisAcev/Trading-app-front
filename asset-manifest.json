@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/LuisAcev/Trading-app-front/static/css/main.7d8bcd01.css",
+    "main.js": "/LuisAcev/Trading-app-front/static/js/main.f79e6b0b.js",
+    "static/js/453.1b8e7ee2.chunk.js": "/LuisAcev/Trading-app-front/static/js/453.1b8e7ee2.chunk.js",
+    "static/js/38.ed935481.chunk.js": "/LuisAcev/Trading-app-front/static/js/38.ed935481.chunk.js",
+    "static/media/error404.png": "/LuisAcev/Trading-app-front/static/media/error404.5ffa0d7cefff5d64a7d7.png",
+    "static/media/dashboard.jpg": "/LuisAcev/Trading-app-front/static/media/dashboard.ec2f6944fb0fc3863bd2.jpg",
+    "static/media/Account.jpg": "/LuisAcev/Trading-app-front/static/media/Account.22167055d9cb7ec97b13.jpg",
+    "static/media/home.jpg": "/LuisAcev/Trading-app-front/static/media/home.ee758a2df172be10f24e.jpg",
+    "static/media/CE.jpg": "/LuisAcev/Trading-app-front/static/media/CE.bc41209f7220886f3522.jpg",
+    "static/media/Cal.jpg": "/LuisAcev/Trading-app-front/static/media/Cal.8c45db83cd7ef083c379.jpg",
+    "index.html": "/LuisAcev/Trading-app-front/index.html",
+    "main.7d8bcd01.css.map": "/LuisAcev/Trading-app-front/static/css/main.7d8bcd01.css.map",
+    "main.f79e6b0b.js.map": "/LuisAcev/Trading-app-front/static/js/main.f79e6b0b.js.map",
+    "453.1b8e7ee2.chunk.js.map": "/LuisAcev/Trading-app-front/static/js/453.1b8e7ee2.chunk.js.map",
+    "38.ed935481.chunk.js.map": "/LuisAcev/Trading-app-front/static/js/38.ed935481.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7d8bcd01.css",
+    "static/js/main.f79e6b0b.js"
+  ]
+}
