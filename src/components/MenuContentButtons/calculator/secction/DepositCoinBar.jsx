@@ -95,13 +95,15 @@ const AutocompleteRoot = styled("div")(
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
   box-shadow: 0 2px 4px ${
-    theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
+    theme.palette.mode === "dark"
+      ? "rgba(0,0,0, 0.5)"
+      : "rgba(235, 21, 21, 0.05)"
   };
   display: flex;
   gap: 5px;
   padding-right: 5px;
   overflow: hidden;
-  width: 200px;
+  width: 195px;
 
   &.Mui-focused {
     border-color: ${blue[400]};
@@ -116,6 +118,9 @@ const AutocompleteRoot = styled("div")(
 
   &:focus-visible {
     outline: 0;
+  }
+    @media screen and (max-width: 500px) {
+      width: 150px;
   }
 `
 );

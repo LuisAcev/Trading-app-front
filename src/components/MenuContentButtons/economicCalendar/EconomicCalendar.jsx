@@ -14,7 +14,7 @@ export const EconomicCalendar = () => {
   return (
     <ThemeProvider theme={{ [THEME_ID]: materialTheme }}>
       <JoyCssVarsProvider>
-        <Box sx={{ width: { xs: "27rem", md: "45rem", lg: "75rem" } }}>
+        <Box sx={{ width: { xs: "25rem", md: "45rem", lg: "75rem" } }}>
           <Table
             aria-label="table variants"
             variant={"plain"}
@@ -27,6 +27,7 @@ export const EconomicCalendar = () => {
               backgroundColor: "rgba(196, 201, 209, 0.36)",
               borderRadius: "10px",
               color: "inherit",
+              fontSize: { xs: "0.6rem", md: "1rem" },
             }}
           >
             <thead>
@@ -34,7 +35,7 @@ export const EconomicCalendar = () => {
                 <th style={{ fontWeight: "bold" }}>
                   {t("economicCalendar.date")}
                 </th>
-                <th style={{ fontWeight: "bold", width: "18%" }}>
+                <th style={{ fontWeight: "bold" }}>
                   {t("economicCalendar.event")}
                 </th>
                 <th style={{ fontWeight: "bold" }}>
@@ -66,7 +67,13 @@ export const EconomicCalendar = () => {
                     style={{ color: labelColor(row.previous) }}
                   >{`${row.previous}%`}</td>
                   <td>
-                    <Rating name="impact" value={row.impact} max={3} readOnly />
+                    <Rating
+                      name="impact"
+                      value={row.impact}
+                      max={3}
+                      readOnly
+                      sx={{ fontSize: { xs: "1rem", md: "2rem" } }}
+                    />
                   </td>
                 </tr>
               ))}

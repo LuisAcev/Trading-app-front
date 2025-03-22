@@ -132,7 +132,7 @@ const Input = styled("input")(
   @media screen and (max-width: 500px) {
     text-align: right; 
      padding: 0 0 0 0;
-     font-size: 0.8rem;
+     font-size: 0.72rem;
 }
  `
 );

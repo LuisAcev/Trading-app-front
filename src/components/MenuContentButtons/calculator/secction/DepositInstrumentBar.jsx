@@ -71,7 +71,9 @@ export const DepositInstrumentBar = ({ options, setValue, setcalcValues }) => {
         {groupedOptions.length > 0 && (
           <Listbox {...getListboxProps()}>
             {groupedOptions.map((option, index) => (
-              <Option key={index} {...getOptionProps({ option, index })}>{option}</Option>
+              <Option key={index} {...getOptionProps({ option, index })}>
+                {option}
+              </Option>
             ))}
           </Listbox>
         )}
@@ -137,6 +139,9 @@ const AutocompleteRoot = styled("div")(
 
   &:focus-visible {
     outline: 0;
+  }
+  @media screen and (max-width: 500px) {
+    width: 150px;
   }
 `
 );

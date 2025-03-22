@@ -135,13 +135,17 @@ export const Calculator = (props) => {
                 onSubmit={handleSubmit(onSubmit)}
                 sx={{ display: "flex", flexDirection: "column", gap: 2 }}
               >
-                <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
+                <Box sx={{ display: "flex", flexDirection: "row", gap: 1.5 }}>
                   {/* DEPOSIT CURRENCY */}
 
                   <FormControl>
                     <FormLabel
                       htmlFor="depositCurrency"
-                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                      sx={{
+                        color: "#e1621e",
+                        fontWeight: "bold",
+                        fontSize: { xs: "0.8rem", md: "100%" },
+                      }}
                     >
                       {t("calculator.depositCurrency")}
                     </FormLabel>
@@ -155,7 +159,11 @@ export const Calculator = (props) => {
                   <FormControl>
                     <FormLabel
                       htmlFor="currency"
-                      sx={{ color: "#e1621e", fontWeight: "bold" }}
+                      sx={{
+                        color: "#e1621e",
+                        fontWeight: "bold",
+                        fontSize: { xs: "0.8rem", md: "100%" },
+                      }}
                     >
                       {t("calculator.currency")}
                     </FormLabel>
@@ -189,7 +197,7 @@ export const Calculator = (props) => {
                         ".MuiOutlinedInput-root": {
                           backgroundColor: "rgba(67, 70, 75, 0.5)",
                           fontSize: 17,
-                          width: "200px",
+                          width: { xs: "150px", md: "195px" },
                         },
                       }}
                       {...register("price")}
@@ -218,6 +226,7 @@ export const Calculator = (props) => {
                       sx={{
                         ".MuiOutlinedInput-root": {
                           backgroundColor: "rgba(67, 70, 75, 0.5)",
+                          width: { xs: "145px", md: "195px" },
                         },
                       }}
                       {...register("lotes")}

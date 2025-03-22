@@ -54,7 +54,7 @@ export const ToggleButtonFigures = ({
         <Box
           sx={{
             display: { md: "none", lg: "none" },
-            width: { xs: "11rem" },
+            width: { xs: "10rem" },
             Padding: "0 0 0 0",
           }}
         >
