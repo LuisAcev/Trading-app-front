@@ -33,7 +33,7 @@ export default function Dashboard(props) {
               alignItems: "center",
               mx: 3,
               pb: 5,
-              margin: { xs: "4rem 0 0 0", md: "1.5rem 0 0 0" },
+              margin: { xs: "4rem 0 0 0", md: "1rem 0 0 0" },
             }}
           >
             <Header />
