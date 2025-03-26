@@ -8,7 +8,7 @@ export default function Search() {
       sx={{
         width: { xs: "100%", md: "70ch", lg: "100ch" },
         marginLeft: { xs: "0rem", md: "0rem", lg: "6rem" },
-        marginTop: { xs: "0.5rem", md: "1rem", lg: "1rem" },
+        marginTop: { xs: "0.5rem", md: "0rem", lg: "0rem" },
       }}
       variant="outlined"
     >

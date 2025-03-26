@@ -44,6 +44,7 @@ export const ToggleButtonFigures = ({
           display: "flex",
           border: `1px solid ${theme.palette.divider}`,
           flexWrap: "wrap",
+          width: { xs: "22.5rem", md: "100%" },
         })}
       >
         <Divider

@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import SideMenu from "./components/SideMenu";
 import AppTheme from "./AppTheme";
 import AppNavbarMobil from "./components/AppNavbarMobil";
-import {  } from "@mui/icons-material";
+import {} from "@mui/icons-material";
 import { Outlet } from "react-router-dom";
 
 export default function Dashboard(props) {
@@ -28,11 +28,12 @@ export default function Dashboard(props) {
         >
           <Stack
             spacing={2}
+            // sattings bar instrument chart
             sx={{
               alignItems: "center",
               mx: 3,
               pb: 5,
-              mt: { xs: 8, md: 0 },
+              margin: { xs: "4rem 0 0 0", md: "1.5rem 0 0 0" },
             }}
           >
             <Header />
