@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Trading-app-front/static/css/main.7d8bcd01.css",
-    "main.js": "/Trading-app-front/static/js/main.307ccf0a.js",
+    "main.js": "/Trading-app-front/static/js/main.522001d5.js",
     "static/js/453.1b8e7ee2.chunk.js": "/Trading-app-front/static/js/453.1b8e7ee2.chunk.js",
     "static/js/38.ed935481.chunk.js": "/Trading-app-front/static/js/38.ed935481.chunk.js",
     "static/media/error404.png": "/Trading-app-front/static/media/error404.5ffa0d7cefff5d64a7d7.png",
@@ -12,12 +12,12 @@
     "static/media/Cal.jpg": "/Trading-app-front/static/media/Cal.8c45db83cd7ef083c379.jpg",
     "index.html": "/Trading-app-front/index.html",
     "main.7d8bcd01.css.map": "/Trading-app-front/static/css/main.7d8bcd01.css.map",
-    "main.307ccf0a.js.map": "/Trading-app-front/static/js/main.307ccf0a.js.map",
+    "main.522001d5.js.map": "/Trading-app-front/static/js/main.522001d5.js.map",
     "453.1b8e7ee2.chunk.js.map": "/Trading-app-front/static/js/453.1b8e7ee2.chunk.js.map",
     "38.ed935481.chunk.js.map": "/Trading-app-front/static/js/38.ed935481.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7d8bcd01.css",
-    "static/js/main.307ccf0a.js"
+    "static/js/main.522001d5.js"
   ]
 }
