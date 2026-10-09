@@ -27,7 +27,9 @@ export default function AppAppBar() {
   };
 
   const handleSignIn = () => {
-    navigate(`/sign_in`, {});
+    // production
+    //navigate(`/sign_in`, {});
+    navigate(`/dashboard/charts/c`, {});
   };
 
   const handleIsLogged = () => {

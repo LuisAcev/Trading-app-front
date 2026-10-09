@@ -3,7 +3,7 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-  createHashRouter // para el despliegue ya que rgithub no reconoce rutas dinamicas
+  createHashRouter, // para el despliegue ya que rgithub no reconoce rutas dinamicas
 } from "react-router-dom";
 import { ChartDraw } from "../components/chartDraw/ChartDraw";
 import { Calculator } from "../components/MenuContentButtons/calculator/Calculator";
@@ -25,7 +25,7 @@ const router = createHashRouter(
     {
       path: "/",
       element: <Home />,
-      errorElement: <ErrorPage />
+      errorElement: <ErrorPage />,
     },
     {
       path: "sign_in",
@@ -45,10 +45,15 @@ const router = createHashRouter(
           path: "charts",
           element: <ChartDraw />,
           children: [
-            { path: "c", element: <CandleCharts /> },
-            { path: "b", element: <BarCharts /> },
-            { path: "l", element: <LineCharts /> },
-            { path: "a", element: <AreaCharts /> },
+            //Production
+            // { path: "c", element: <CandleCharts /> },
+            // { path: "b", element: <BarCharts /> },
+            // { path: "l", element: <LineCharts /> },
+            // { path: "a", element: <AreaCharts /> },
+            { path: "c", element: <CandleCharts instrument={'forex'}/> },
+            { path: "b", element: <BarCharts instrument={'crypto'} /> },
+            { path: "l", element: <LineCharts instrument={'assets'} /> },
+            { path: "a", element: <AreaCharts  instrument={'crypto'}/> },
           ],
         },
         { path: "economic_calendar", element: <EconomicCalendar /> },
@@ -72,7 +77,7 @@ const router = createHashRouter(
       v7_skipActionErrorRevalidation: true,
       v7_startTransition: true,
     },
-  }
+  },
 );
 
 export const AppRouter = () => {

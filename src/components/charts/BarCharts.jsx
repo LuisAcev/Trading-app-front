@@ -8,12 +8,15 @@ import { Loading } from "../loading/Loading";
 import { ErrorPage } from "../error/ErrorPage";
 
 export const BarCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {} } = props;
-  const { instrument, time } = useSelector((item) => item.instrumentSlice);
-  const { data, error, isLoading } = useGetCandleDataQuery({
-    asset: instrument ? instrument : "AAPL",
-    time: time,
-  });
+  const { colors: { backgroundColor = "white" } = {},instrument } = props;
+//Production
+  // const { instrument, time } = useSelector((item) => item.instrumentSlice);
+  // const { data, error, isLoading } = useGetCandleDataQuery({
+  //   asset: instrument ? instrument : "AAPL",
+  //   time: time,
+  // });
+
+   const { data, error, isLoading } = useGetCandleDataQuery(instrument);
   const chartContainerRef = useRef();
 
   useEffect(() => {
@@ -39,7 +42,9 @@ export const BarCharts = (props) => {
     });
 
     // Get data
-    newSeries.setData(data.dataCandle.candelCharts);
+    // produccion
+    // newSeries.setData(data.dataCandle.candelCharts);
+    newSeries.setData(data[instrument]);
 
     window.addEventListener("resize", handleResize);
 

@@ -1,21 +1,35 @@
 import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useGetlineDataQuery } from "../../api/chartsApi/lineApi";
 import { useSelector } from "react-redux";
 import { Loading } from "../loading/Loading";
 import { ErrorPage } from "../error/ErrorPage";
 
 export const AreaCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {} } = props;
-  const { instrument, time } = useSelector((item) => item.instrumentSlice);
-  const { data, error, isLoading } = useGetlineDataQuery({
-    asset: instrument ? instrument : "AAPL",
-    time: time,
-  });
+  //Production
+  // const { colors: { backgroundColor = "white" } = {} } = props;
+  // const { instrument, time } = useSelector((item) => item.instrumentSlice);
+  // const { data, error, isLoading } = useGetlineDataQuery({
+  //   asset: instrument ? instrument : "AAPL",
+  //   time: time,
+  // });
+  const {
+    colors: { backgroundColor = "white" } = {},
+    instrument,
+    textLabel,
+  } = props;
 
+  const { data, isLoading, error } = useGetlineDataQuery(instrument);
   const chartContainerRef = useRef();
 
+  const line = useMemo(
+    () =>
+      data
+        ? data[instrument].map(({ time, close }) => ({ time, value: close }))
+        : [],
+    [data],
+  );
   useEffect(() => {
     if (!data) return;
 
@@ -100,7 +114,9 @@ export const AreaCharts = (props) => {
     chart.timeScale().fitContent();
 
     // Get data
-    newSeries.setData(data.datalinea.lineCharts);
+    //production
+    // newSeries.setData(data.datalinea.lineCharts);
+    newSeries.setData(line);
 
     window.addEventListener("resize", handleResize);
 
@@ -109,7 +125,7 @@ export const AreaCharts = (props) => {
 
       chart.remove();
     };
-  }, [data, backgroundColor]);
+  }, [line, backgroundColor]);
 
   const errorStatus =
     error?.data?.status || error?.status || ` Status: Error 404 `;

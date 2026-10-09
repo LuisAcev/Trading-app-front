@@ -5,11 +5,18 @@ import { useGetCandleDataQuery } from "../../../../../../api/chartsApi/candleApi
 import { Loading } from "../../../../../../components/loading/Loading";
 
 export const CandleCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const { data, isLoading } = useGetCandleDataQuery({
-    asset: instrument.split("|")[0].trim(),
-    time: "1d",
-  });
+  const {
+    colors: { backgroundColor = "white" } = {},
+    instrument,
+    textLabel,
+  } = props;
+  // Production
+  // const { data, isLoading } = useGetCandleDataQuery({
+  //   asset: instrument.split("|")[0].trim(),
+  //   time: "1d",
+  // });
+
+  const { data, isLoading } = useGetCandleDataQuery(instrument);
   const chartContainerRef = useRef();
   useEffect(() => {
     if (!data) return;
@@ -39,7 +46,7 @@ export const CandleCharts = (props) => {
         horzAlign: "center",
         vertAlign: "center",
         color: "rgba(233, 128, 8)",
-        text: instrument,
+        text: textLabel || "aapl",
       },
     });
     chart.timeScale().fitContent();
@@ -53,7 +60,9 @@ export const CandleCharts = (props) => {
     });
 
     // Get data
-    newSeries.setData(data.dataCandle.candelCharts);
+    // produccion
+    // newSeries.setData(data.dataCandle.candelCharts);
+    newSeries.setData(data[instrument]);
 
     window.addEventListener("resize", handleResize);
 

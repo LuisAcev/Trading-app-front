@@ -1,17 +1,30 @@
 import { Box } from "@mui/material";
 import { createChart } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useGetlineDataQuery } from "../../../../../../api/chartsApi/lineApi.js";
 import { Loading } from "../../../../../../components/loading/Loading.jsx";
 
 export const AreaCharts = (props) => {
-  const { colors: { backgroundColor = "white" } = {}, instrument } = props;
-  const { data, isLoading } = useGetlineDataQuery({
-    asset: instrument.split("|")[0].trim(),
-    time: "1d",
-  });
-
+  const {
+    colors: { backgroundColor = "white" } = {},
+    instrument,
+    textLabel,
+  } = props;
+  // Production
+  // const { data, isLoading } = useGetlineDataQuery({
+  //   asset: instrument.split("|")[0].trim(),
+  //   time: "1d",
+  // });
+  const { data, isLoading } = useGetlineDataQuery(instrument);
   const chartContainerRef = useRef();
+
+  const line = useMemo(
+    () =>
+      data
+        ? data[instrument].map(({ time, close }) => ({ time, value: close }))
+        : [],
+    [data],
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -43,7 +56,8 @@ export const AreaCharts = (props) => {
         horzAlign: "center",
         vertAlign: "center",
         color: "rgba(233, 128, 8)",
-        text: instrument,
+        //text: instrument, productrion
+        text: textLabel,
       },
     });
 
@@ -116,7 +130,10 @@ export const AreaCharts = (props) => {
     chart.timeScale().fitContent();
 
     // Get data
-    newSeries.setData(data.datalinea.lineCharts);
+    //production
+    // newSeries.setData(data.datalinea.lineCharts);
+    newSeries.setData(line);
+
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -124,7 +141,7 @@ export const AreaCharts = (props) => {
 
       chart.remove();
     };
-  }, [data, backgroundColor]);
+  }, [line, backgroundColor]);
 
   return (
     <>

@@ -42,7 +42,10 @@ export const SearchInstrumentBar = ({ options }) => {
         {groupedOptions.length > 0 && (
           <Listbox {...getListboxProps()}>
             {groupedOptions.map((option, index) => (
-              <Option key={index} {...getOptionProps({ option, index })}>
+              <Option key={index} 
+              // {...getOptionProps({ option, index })}
+              
+              >
                 {option}
               </Option>
             ))}
